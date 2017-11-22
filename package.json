@@ -1,0 +1,68 @@
+{
+  "name": "wdio-mochawesome-reporter",
+  "version": "1.0.0",
+  "description": "A WebdriverIO plugin. Generates json results in Mochawesome format.",
+  "author": "Jim Davis <fijijavis@gmail.com>",
+  "homepage": "#readme",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+"
+  },
+  "main": "build/reporter.js",
+  "directories": {
+    "lib": "./lib"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf ./build",
+    "compile": "babel lib/ -d build/",
+    "eslint": "eslint ./lib test/",
+    "server": "http-server ./test/fixtures/ -p 8080 &",
+    "server:stop": "ps -eaf | grep -i http-server | awk {'print $2'} | xargs kill -9",
+    "hub": "phantomjs --webdriver=4444 2>&1 >/dev/null &",
+    "hub:stop": "ps -eaf | grep -i phantomjs | awk {'print $2'} | xargs kill -9",
+    "test": "npm run server && npm run hub && mocha ./test/specs/tests.js",
+    "stop": "npm run server:stop; npm run hub:stop"
+  },
+  "keywords": [
+    "mochawesome",
+    "reporter",
+    "webdriverio",
+    "wdio",
+    "wdio-reporter"
+  ],
+  "bugs": {
+    "url": "/issues"
+  },
+  "dependencies": {
+    "mkdirp": "^0.5.1",
+    "uuid": "^3.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "~6.24.1",
+    "babel-core": "~6.25.0",
+    "babel-eslint": "~7.2.1",
+    "babel-istanbul": "~0.12.2",
+    "babel-plugin-add-module-exports": "~0.2.1",
+    "babel-preset-env": "~1.6.1",
+    "babel-preset-stage-0": "~6.24.1",
+    "chai": "~3.5.0",
+    "del": "~2.2.0",
+    "eslint": "~4.4.0",
+    "eslint-config-standard": "~10.2.0",
+    "eslint-plugin-import": "~2.7.0",
+    "eslint-plugin-node": "~5.1.0",
+    "eslint-plugin-promise": "~3.5.0",
+    "eslint-plugin-standard": "~3.0.1",
+    "http-server": "^0.10.0",
+    "mocha": "~3.4.1",
+    "phantomjs-prebuilt": "~2.1.16",
+    "wdio-mocha-framework": "~0.5.10",
+    "wdio-selenium-standalone-service": "~0.0.8",
+    "webdriverio": "~4.8.0"
+  },
+  "contributors": [
+    "Jim Davis"
+  ]
+}

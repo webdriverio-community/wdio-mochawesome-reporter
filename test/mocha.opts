@@ -1,0 +1,5 @@
+--require babel-core/register
+--reporter spec
+--quiet false
+--timeout 8000
+--ui tdd
