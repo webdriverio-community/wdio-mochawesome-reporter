@@ -172,11 +172,12 @@ suite('WDIO Mochawesome Tests', () => {
         })
     })
 
-    test.skip('Should handle parallel suites', () => {
+    test('Should handle parallel suites', () => {
         return run(['passing', 'failing']).then((results) => {
             expect(results).to.have.lengthOf(1)
             let result = results[0]
 
+            // validate stats
             expect(result.stats.suites, 'stats.suites is not correct').to.be.equal(2)
             expect(result.stats.tests, 'stats.tests is not correct').to.be.equal(2)
             expect(result.stats.testsRegistered, 'stats.testsRegistered is not correct').to.be.equal(2)
@@ -188,32 +189,49 @@ suite('WDIO Mochawesome Tests', () => {
             expect(result.stats.pendingPercent, 'stats.pendingPercent is not correct').to.be.equal(0)
             expect(result.suites.suites.length, 'suites.suites is not correct').to.be.equal(2)
             expect(result.suites.suites[0].title, 'suites.suites might be duplicated').to.not.be.equal(result.suites.suites[1].title)
+
+            // validate "all" arrays
+            expect(result.allTests.length, 'results.allTests was not populated').to.be.equal(2)
+            expect(result.allPasses.length, 'results.allPasses was not populated').to.be.equal(1)
+            expect(result.allPending.length, 'results.allPasses was not populated').to.be.equal(0)
+            expect(result.allFailures.length, 'results.allPasses was not populated').to.be.equal(1)
         })
     })
 
-    test.skip('Should handle multiple results', () => {
+    test('Should handle multiple results', () => {
         return run(['multiresults']).then((results) => {
             expect(results).to.have.lengthOf(1)
             let result = results[0]
 
+            //validate stats
             expect(result.stats.suites, 'stats.suites is not correct').to.be.equal(1)
-            expect(result.stats.tests, 'stats.tests is not correct').to.be.equal(5)
-            expect(result.stats.testsRegistered, 'stats.testsRegistered is not correct').to.be.equal(5)
+            expect(result.stats.tests, 'stats.tests is not correct').to.be.equal(6)
+            expect(result.stats.testsRegistered, 'stats.testsRegistered is not correct').to.be.equal(6)
             expect(result.stats.passes, 'stats.passes is not correct').to.be.equal(3)
-            expect(result.stats.pending, 'stats.pending is not correct').to.be.equal(0)
+            expect(result.stats.pending, 'stats.pending is not correct').to.be.equal(1)
             expect(result.stats.failures, 'stats.failures is not correct').to.be.equal(2)
             expect(result.stats.duration, 'stats.duration is not correct').to.be.greaterThan(0)
-            expect(result.stats.passPercent, 'stats.passPercent is not correct').to.be.equal(60)
-            expect(result.stats.pendingPercent, 'stats.pendingPercent is not correct').to.be.equal(0)
+            expect(result.stats.passPercent, 'stats.passPercent is not correct').to.be.equal(50)
+            expect(result.stats.pendingPercent, 'stats.pendingPercent is not correct').to.be.equal(17)
+            
+            //validate suites
             expect(result.suites.suites.length, 'suites.suites is not correct').to.be.equal(1)
-            expect(result.suites.suites[0].tests.length, 'suites.suites.tests is not correct').to.be.equal(5)
+            expect(result.suites.suites[0].tests.length, 'suites.suites.tests is not correct').to.be.equal(6)
             expect(result.suites.suites[0].passes.length, 'suites.suites.passes is not correct').to.be.equal(3)
             expect(result.suites.suites[0].failures.length, 'suites.suites.failures is not correct').to.be.equal(2)
-            expect(result.suites.suites[0].totalTests, 'suites.suites.totalTests is not correct').to.be.equal(5)
+            expect(result.suites.suites[0].pending.length, 'suites.suites.pendings is not correct').to.be.equal(1)
+            expect(result.suites.suites[0].totalTests, 'suites.suites.totalTests is not correct').to.be.equal(6)
             expect(result.suites.suites[0].totalPasses, 'suites.suites.totalPasses is not correct').to.be.equal(3)
             expect(result.suites.suites[0].totalFailures, 'suites.suites.totalFailures is not correct').to.be.equal(2)
+            expect(result.suites.suites[0].totalPending, 'suites.suites.totalPending is not correct').to.be.equal(1)
             expect(result.suites.suites[0].hasPasses, 'suites.suites.hasPasses is not correct').to.be.true
             expect(result.suites.suites[0].hasFailures, 'suites.suites.hasFailures is not correct').to.be.true
+
+            // validate "all" arrays
+            expect(result.allTests.length, 'results.allTests was not populated').to.be.equal(6)
+            expect(result.allPasses.length, 'results.allPasses was not populated').to.be.equal(3)
+            expect(result.allPending.length, 'results.allPasses was not populated').to.be.equal(1)
+            expect(result.allFailures.length, 'results.allPasses was not populated').to.be.equal(2)
         })
     })
 

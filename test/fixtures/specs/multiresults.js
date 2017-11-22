@@ -40,4 +40,8 @@ suite('A suite', () => {
         var value = browser.getValue('#result')
         expect(value).to.be.equal('2')
     })
+
+    test.skip('first skipped test', () => {
+        
+    })
 })
