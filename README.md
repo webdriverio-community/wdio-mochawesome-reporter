@@ -1,6 +1,8 @@
 WDIO Mochawesome Reporter
 =========================
 
+[![Build Status](https://travis-ci.org/fijijavis/wdio-mochawesome-reporter.svg?branch=master)] [![NPM version](https://badge.fury.io/js/wdio-mochawesome-reporter.svg)](http://badge.fury.io/js/wdio-mochawesome-reporter) [![npm](https://img.shields.io/npm/dm/wdio-mochawesome-reporter.svg?maxAge=2592000)]() 
+
 Generates test results in the json formated needed to create [Mochawesome](https://github.com/adamgruber/mochawesome) reports.
 
 
