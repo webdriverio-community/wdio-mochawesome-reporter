@@ -108,12 +108,12 @@ suite('WDIO Mochawesome Tests', () => {
             expect(result.suites.suites[0].tests[0].parentUUID, 'suites.suites[0].tests[0].parentUUID is not correct').to.equal(result.suites.suites[0].uuid)
             expect(result.suites.suites[0].tests[0].state, 'suites.suites[0].tests[0].state is not correct').to.equal('failed')
             expect(result.suites.suites[0].tests[0].err.name, 'suites.suites[0].tests[0].err.name is not correct').to.equal('AssertionError')
-            expect(result.suites.suites[0].tests[0].err.message, 'suites.suites[0].tests[0].err.message is not correct').to.equal("expected '1' to equal '2'")
+            expect(result.suites.suites[0].tests[0].err.message, 'suites.suites[0].tests[0].err.message is not correct').to.equal("expected 1 to equal 2")
             expect(result.suites.suites[0].tests[0].err.estack, 'suites.suites[0].tests[0].err.estack is empry').to.not.be.empty
             expect(result.suites.suites[0].tests[0].err.stack, 'suites.suites[0].tests[0].err.stack is empry').to.not.be.empty
             expect(result.suites.suites[0].tests[0].err.showDiff, 'suites.suites[0].tests[0].err.showDiff is not correct').to.be.true
-            expect(result.suites.suites[0].tests[0].err.actual, 'suites.suites[0].tests[0].err.actual is not correct').to.be.equal('1')
-            expect(result.suites.suites[0].tests[0].err.expected, 'suites.suites[0].tests[0].err.expected is not correct').to.be.equal('2')
+            expect(result.suites.suites[0].tests[0].err.actual, 'suites.suites[0].tests[0].err.actual is not correct').to.be.equal(1)
+            expect(result.suites.suites[0].tests[0].err.expected, 'suites.suites[0].tests[0].err.expected is not correct').to.be.equal(2)
 
             // validate "all" arrays
             expect(result.allTests.length, 'results.allTests was not populated').to.be.equal(1)

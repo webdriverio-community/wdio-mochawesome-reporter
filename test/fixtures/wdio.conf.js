@@ -2,7 +2,7 @@ var mochawesomeReporter = require('../../build/reporter')
 mochawesomeReporter.reporterName = 'mochawesome'
 
 exports.config = {
-    baseUrl: 'http://localhost:8080/test/fixtures/index.html',
+    baseUrl: 'https://travis-ci.org/fijijavis/wdio-mochawesome-reporter',
     host: 'localhost',
     port: 4444,
     coloredLogs: true,
