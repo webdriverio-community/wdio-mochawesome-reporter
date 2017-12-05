@@ -15,7 +15,7 @@
   },
   "scripts": {
     "build": "npm run clean && npm run compile",
-    "clean": "rm -rf ./build",
+    "clean": "rm -rf ./build && rm -rf ./screenshots",
     "compile": "babel lib/ -d build/",
     "eslint": "eslint ./lib test/",
     "hub": "phantomjs --webdriver=4444 2>&1 >/dev/null &",
