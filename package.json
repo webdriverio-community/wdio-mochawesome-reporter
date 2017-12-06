@@ -19,9 +19,7 @@
     "compile": "babel lib/ -d build/",
     "eslint": "eslint ./lib test/",
     "hub": "phantomjs --webdriver=4445 2>&1 > phantom.log &",
-    "hub:stop": "ps -eaf | grep -i phantomjs | awk {'print $2'} | xargs kill -9",
-    "test": "npm run hub && mocha ./test/specs/tests.js",
-    "stop": "npm run hub:stop"
+    "test": "npm run hub && mocha ./test/specs/tests.js"
   },
   "keywords": [
     "mochawesome",
@@ -54,7 +52,6 @@
     "eslint-plugin-promise": "~3.5.0",
     "eslint-plugin-standard": "~3.0.1",
     "mocha": "~3.4.1",
-    "phantomjs-prebuilt": "2.1.16",
     "wdio-mocha-framework": "~0.5.10",
     "wdio-selenium-standalone-service": "~0.0.8",
     "webdriverio": "~4.8.0"
