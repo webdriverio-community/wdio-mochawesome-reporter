@@ -4,4 +4,5 @@ npm-debug.log
 .vscode/*
 wdiomochawesome.json
 build/
+screenshots/
 phantom.log

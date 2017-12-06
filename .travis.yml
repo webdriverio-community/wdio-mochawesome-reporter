@@ -1,8 +1,9 @@
 language: node_js
 
 node_js:
-  - 8.9.1
+  - 8.9.2
 
 script:
   - npm run build
+  - npm run hub:start
   - npm run test

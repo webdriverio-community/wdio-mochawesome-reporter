@@ -53,6 +53,7 @@ suite('WDIO Mochawesome Tests', () => {
             expect(result.suites.suites[0].tests[0].uuid, 'suites.suites[0].tests[0].uuid is not correct').to.not.be.empty
             expect(result.suites.suites[0].tests[0].parentUUID, 'suites.suites[0].tests[0].parentUUID is not correct').to.equal(result.suites.suites[0].uuid)
             expect(result.suites.suites[0].tests[0].state, 'suites.suites[0].tests[0].state is not correct').to.equal('passed')
+            expect(result.suites.suites[0].tests[0].context,'result.suites.suites[0].tests[0].context is not empty').to.be.empty
 
             // validate "all" arrays
             expect(result.allTests.length, 'results.allTests was not populated').to.be.equal(1)
@@ -114,6 +115,7 @@ suite('WDIO Mochawesome Tests', () => {
             expect(result.suites.suites[0].tests[0].err.showDiff, 'suites.suites[0].tests[0].err.showDiff is not correct').to.be.true
             expect(result.suites.suites[0].tests[0].err.actual, 'suites.suites[0].tests[0].err.actual is not correct').to.be.equal(1)
             expect(result.suites.suites[0].tests[0].err.expected, 'suites.suites[0].tests[0].err.expected is not correct').to.be.equal(2)
+            expect(result.suites.suites[0].tests[0].context,'result.suites.suites[0].tests[0].context is not empty').to.be.empty
 
             // validate "all" arrays
             expect(result.allTests.length, 'results.allTests was not populated').to.be.equal(1)
@@ -165,6 +167,7 @@ suite('WDIO Mochawesome Tests', () => {
             expect(result.suites.suites[0].tests[0].parentUUID, 'suites.suites[0].tests[0].parentUUID is not correct').to.equal(result.suites.suites[0].uuid)
             expect(result.suites.suites[0].tests[0].state, 'suites.suites[0].tests[0].state is not correct').to.be.undefined
             expect(result.suites.suites[0].pending.length, 'suites.suites[0].pending not populated').to.be.equal(1)
+            expect(result.suites.suites[0].tests[0].context,'result.suites.suites[0].tests[0].context is not empty').to.be.empty
 
             // validate "all" arrays
             expect(result.allTests.length, 'results.allTests was not populated').to.be.equal(1)
@@ -232,6 +235,32 @@ suite('WDIO Mochawesome Tests', () => {
             expect(result.allPasses.length, 'results.allPasses was not populated').to.be.equal(3)
             expect(result.allPending.length, 'results.allPasses was not populated').to.be.equal(1)
             expect(result.allFailures.length, 'results.allPasses was not populated').to.be.equal(2)
+        })
+    })
+
+    test('Should include manual screenshots as part of context',function(){
+        return run(['screenshot-manual'],'wdio-ma').then((results) => {
+            expect(results).to.have.lengthOf(1)
+            let result = results[0]
+            expect(result.suites.suites[0].tests[0].context, 'suites.suites[0].tests[0].context was empty').to.not.be.empty
+
+            let contextData = JSON.parse(result.suites.suites[0].tests[0].context)
+            expect(contextData).to.have.lengthOf(1)
+            expect(contextData[0].title).to.equal("Screenshot: sample.png")
+            expect(contextData[0].value).to.equal("screenshots/sample.png")
+        })
+    })
+
+    test('Should include wdio command failure screenshots as part of context',function(){
+        return run(['screenshot-wdio'],'wdio-ma').then((results) => {
+            expect(results).to.have.lengthOf(1)
+            let result = results[0]
+            expect(result.suites.suites[0].tests[0].context, 'suites.suites[0].tests[0].context was empty').to.not.be.empty
+
+            let contextData = JSON.parse(result.suites.suites[0].tests[0].context)
+            expect(contextData).to.have.lengthOf(1)
+            expect(contextData[0].title).to.contain("ERROR_phantomjs")
+            expect(contextData[0].value).to.contain("screenshots/ERROR_phantomjs")
         })
     })
 

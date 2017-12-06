@@ -24,18 +24,35 @@ A dependency will be added to your `package.json`
 
 ## Using
 
- Add to the list of reporters.
+ Add ```mochawesome``` to the reporters array in your wdio config file.
 
 ```js
 // sample wdio.conf.js
 module.exports = {
   // ...
   reporters: ['dot', 'mochawesome'],
-  reporterOptions: {
-    outputDir: './', //json file will be written to this directory
-    mochawesome_filename: 'myfile.json' //will default to wdiomochawesome.json if no name is provided
-  },
+  // ...
+};
+```
 
+## Reporter Configurations
+
+The following configuration options are supported:
+
+|option|description|
+|---|---|
+|includeScreenshots| All screenshots captured during test execution will be embedded in the report|
+
+
+To use a configuration option add a ```mochawesomeOpts``` section to your wdio config.  Then add any options.
+```js
+// sample wdio.conf.js
+module.exports = {
+  // ...
+  reporters: ['dot', 'mochawesome'],
+  mochawesomeOpts: {
+      includeScreenshots:true
+  },
   // ...
 };
 ```
