@@ -5,5 +5,5 @@ node_js:
 
 script:
   - npm run build
-  - npm run hub
+  - npm run hub:start
   - npm run test
