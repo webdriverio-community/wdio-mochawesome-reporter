@@ -269,7 +269,7 @@ suite('WDIO Mochawesome Tests', () => {
             expect(results).to.have.lengthOf(1)
             let result = results[0]
 
-            expect(result.suites.suites[0].title, 'suites.suites[0].title does not contain the sanitized caps').to.contain('chrome')
+            expect(result.suites.suites[0].title, 'suites.suites[0].title does not contain the sanitized caps').to.contain('phantomjs')
         })
     })
 
