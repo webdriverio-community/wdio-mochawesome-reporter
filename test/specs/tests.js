@@ -264,4 +264,13 @@ suite('WDIO Mochawesome Tests', () => {
         })
     })
 
+    test('Should include sanitized capabilities with suite name',function(){
+        return run(['passing']).then((results) => {
+            expect(results).to.have.lengthOf(1)
+            let result = results[0]
+
+            expect(result.suites.suites[0].title, 'suites.suites[0].title does not contain the sanitized caps').to.contain('phantomjs')
+        })
+    })
+
 })
