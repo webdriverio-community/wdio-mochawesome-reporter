@@ -6,7 +6,7 @@ suite('A Manual Screenshot suite', () => {
         browser.url('https://www.google.com')
         var screenshotName = 'sample.png'
         var screenshot = browser.saveScreenshot(screenshotName)
-        fs.writeFileSync(screenshotName,screenshot)
+        fs.writeFileSync(screenshotName, screenshot)
         fs.unlinkSync(screenshotName)
     })
 })

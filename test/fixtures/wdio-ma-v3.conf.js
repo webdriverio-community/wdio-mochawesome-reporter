@@ -1,4 +1,4 @@
-var mochawesomeReporter = require('../../build/reporter')
+var mochawesomeReporter = require('../../build/reporter-v3')
 mochawesomeReporter.reporterName = 'mochawesome'
 
 exports.config = {
@@ -13,7 +13,11 @@ exports.config = {
         ui: 'tdd',
         timeout: 20000
     },
-    screenshotOnReject: false,
+    mochawesomeOpts: {
+        includeScreenshots: true
+    },
+    screenshotOnReject: true,
+    screenshotPath: './screenshots',
     reporterOptions: {
         outputDir: './wdio-mochawesome-report'
     },
