@@ -6,3 +6,4 @@ wdiomochawesome.json
 build/
 screenshots/
 phantom.log
+wdio-mochawesome-report/
