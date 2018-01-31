@@ -1,6 +1,6 @@
+const events = require('events');
 const expect = require('chai').expect
-const clean = require('../helper').clean
-const run = require('../helper').run
+const { clean, run } = require('../helper')
 
 suite('WDIO Mochawesome Tests', () => {
     setup(clean)
@@ -238,6 +238,12 @@ suite('WDIO Mochawesome Tests', () => {
         })
     })
 
+    test('Should include content provided to addContext', function() {
+        return run(['addContext']).then((results) => {
+          expect(results[0].allTests[0].context).to.be.equal('"content provided to addContext"')
+        })
+    })
+
     test('Should include manual screenshots as part of context',function(){
         return run(['screenshot-manual'],'wdio-ma').then((results) => {
             expect(results).to.have.lengthOf(1)
@@ -247,7 +253,7 @@ suite('WDIO Mochawesome Tests', () => {
             let contextData = JSON.parse(result.suites.suites[0].tests[0].context)
             expect(contextData).to.have.lengthOf(1)
             expect(contextData[0].title).to.equal("Screenshot: sample.png")
-            expect(contextData[0].value).to.equal("screenshots/sample.png")
+            expect(contextData[0].value.match(/[^\/]*\/[^\/]*$/)[0]).to.equal("screenshots/sample.png")
         })
     })
 

@@ -33,8 +33,11 @@
     "url": "https://github.com/fijijavis/wdio-mochawesome-reporter/issues"
   },
   "dependencies": {
+    "json-stringify-safe": "^5.0.1",
     "mkdirp": "~0.5.1",
-    "uuid": "~3.0.1"
+    "uuid": "~3.0.1",
+    "wdio-mocha-framework": "~0.5.12",
+    "webdriverio": "~4.10.1"
   },
   "devDependencies": {
     "babel-cli": "~6.24.1",
@@ -53,9 +56,8 @@
     "eslint-plugin-promise": "~3.5.0",
     "eslint-plugin-standard": "~3.0.1",
     "mocha": "~3.4.1",
-    "wdio-mocha-framework": "~0.5.10",
-    "wdio-selenium-standalone-service": "~0.0.8",
-    "webdriverio": "~4.8.0"
+    "mochawesome": "~2.3.1",
+    "wdio-selenium-standalone-service": "~0.0.8"
   },
   "contributors": [
     "Jim Davis"
