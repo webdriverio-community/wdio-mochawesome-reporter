@@ -162,7 +162,7 @@ suite('WDIO Mochawesome Tests', () => {
             expect(result.suites.suites[0].tests[0].pass, 'suites.suites[0].tests[0].pass is not correct').to.be.false
             expect(result.suites.suites[0].tests[0].fail, 'suites.suites[0].tests[0].fail is not correct').to.be.false
             expect(result.suites.suites[0].tests[0].pending, 'suites.suites[0].tests[0].pending is not correct').to.be.true
-            expect(result.suites.suites[0].tests[0].skipped, 'suites.suites[0].tests[0].skipped is not correct').to.be.false
+            expect(result.suites.suites[0].tests[0].skipped, 'suites.suites[0].tests[0].skipped is not correct').to.be.true
             expect(result.suites.suites[0].tests[0].uuid, 'suites.suites[0].tests[0].uuid is not correct').to.not.be.empty
             expect(result.suites.suites[0].tests[0].parentUUID, 'suites.suites[0].tests[0].parentUUID is not correct').to.equal(result.suites.suites[0].uuid)
             expect(result.suites.suites[0].tests[0].state, 'suites.suites[0].tests[0].state is not correct').to.be.undefined
@@ -240,31 +240,26 @@ suite('WDIO Mochawesome Tests', () => {
 
     test('Should include content provided to addContext', function() {
         return run(['addContext']).then((results) => {
-          expect(results[0].allTests[0].context).to.be.equal('"content provided to addContext"')
+            let contextData = JSON.parse(results[0].allTests[0].context)
+            expect(contextData).to.be.an('array').that.includes('"content provided to addContext"')
         })
     })
 
     test('Should include manual screenshots as part of context',function(){
         return run(['screenshot-manual'],'wdio-ma').then((results) => {
             expect(results).to.have.lengthOf(1)
-            let result = results[0]
-            expect(result.suites.suites[0].tests[0].context, 'suites.suites[0].tests[0].context was empty').to.not.be.empty
-
-            let contextData = JSON.parse(result.suites.suites[0].tests[0].context)
-            expect(contextData).to.have.lengthOf(1)
+            let contextData = JSON.parse(results[0].suites.suites[0].tests[0].context)
+            expect(contextData).to.not.be.empty
             expect(contextData[0].title).to.equal("Screenshot: sample.png")
-            expect(contextData[0].value.match(/[^\/]*\/[^\/]*$/)[0]).to.equal("screenshots/sample.png")
+            expect(contextData[0].value).to.contain("screenshots/sample.png")
         })
     })
 
     test('Should include wdio command failure screenshots as part of context',function(){
         return run(['screenshot-wdio'],'wdio-ma').then((results) => {
             expect(results).to.have.lengthOf(1)
-            let result = results[0]
-            expect(result.suites.suites[0].tests[0].context, 'suites.suites[0].tests[0].context was empty').to.not.be.empty
-
-            let contextData = JSON.parse(result.suites.suites[0].tests[0].context)
-            expect(contextData).to.have.lengthOf(1)
+            let contextData = JSON.parse(results[0].suites.suites[0].tests[0].context)
+            expect(contextData).to.not.be.empty
             expect(contextData[0].title).to.contain("ERROR_phantomjs")
             expect(contextData[0].value).to.contain("screenshots/ERROR_phantomjs")
         })
@@ -276,6 +271,17 @@ suite('WDIO Mochawesome Tests', () => {
             let result = results[0]
 
             expect(result.suites.suites[0].title, 'suites.suites[0].title does not contain the sanitized caps').to.contain('phantomjs')
+        })
+    })
+
+    test('Should support added Context and Screenshot Context', function(){
+        return run(['addContextAndScreenshot'],'wdio-ma').then((results)=>{
+            expect(results).to.have.lengthOf(1)
+            let result = results[0]
+            let contextData = JSON.parse(results[0].suites.suites[0].tests[0].context)
+            expect(contextData).to.have.length(2)
+            expect(contextData[0]).to.contain('content provided to addContext')
+            expect(contextData[1].title).to.contain('Screenshot: sample.png')
         })
     })
 
