@@ -39,9 +39,10 @@ module.exports = {
 
 The following configuration options are supported:
 
-|option|description|
-|---|---|
-|includeScreenshots| All screenshots captured during test execution will be embedded in the report|
+|option|default|description|
+|---|---|---|
+|includeScreenshots|false|All screenshots captured during test execution will be embedded in the report|
+|screenshotUseRelativePath|false|By default sreenshots embeded in a report use an absolute path.  Set this option to true and have screenshot paths be relative to the mochawesome report folder.  This is useful if you want to publish the report to a static web server or zip it as a complete artifact of a build|
 
 
 To use a configuration option add a ```mochawesomeOpts``` section to your wdio config.  Then add any options.
@@ -51,7 +52,8 @@ module.exports = {
   // ...
   reporters: ['dot', 'mochawesome'],
   mochawesomeOpts: {
-      includeScreenshots:true
+      includeScreenshots:true,
+      screenshotUseRelativePath:true
   },
   // ...
 };

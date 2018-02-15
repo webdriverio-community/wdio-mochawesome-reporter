@@ -14,7 +14,8 @@ exports.config = {
         timeout: 20000
     },
     mochawesomeOpts: {
-        includeScreenshots:true
+        includeScreenshots:true,
+        screenshotUseRelativePath:true
     },
     screenshotOnReject: true,
     screenshotPath: './screenshots',
