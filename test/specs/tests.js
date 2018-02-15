@@ -285,4 +285,13 @@ suite('WDIO Mochawesome Tests', () => {
         })
     })
 
+    test.only('Should include sessionId as context',function(){
+        return run(['sessionId','wdio-ma']).then((results) => {
+            console.log('evaluating results')
+            expect(results).to.have.lengthOf(1)
+            let contextData = JSON.parse(results[0].suites.suites[0].tests[0].context)
+            expect(contextData[0].title).to.be.equal("Session Id")
+            expect(contextData[0].value).to.not.be.empty
+        })
+    })
 })
