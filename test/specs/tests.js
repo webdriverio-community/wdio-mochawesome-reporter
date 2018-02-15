@@ -285,7 +285,7 @@ suite('WDIO Mochawesome Tests', () => {
         })
     })
 
-    test.only('Should include sessionId as context',function(){
+    test('Should include sessionId as context',function(){
         return run(['sessionId','wdio-ma']).then((results) => {
             console.log('evaluating results')
             expect(results).to.have.lengthOf(1)
