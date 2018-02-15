@@ -53,7 +53,6 @@ suite('WDIO Mochawesome Tests', () => {
             expect(result.suites.suites[0].tests[0].uuid, 'suites.suites[0].tests[0].uuid is not correct').to.not.be.empty
             expect(result.suites.suites[0].tests[0].parentUUID, 'suites.suites[0].tests[0].parentUUID is not correct').to.equal(result.suites.suites[0].uuid)
             expect(result.suites.suites[0].tests[0].state, 'suites.suites[0].tests[0].state is not correct').to.equal('passed')
-            expect(result.suites.suites[0].tests[0].context,'result.suites.suites[0].tests[0].context is not empty').to.be.empty
 
             // validate "all" arrays
             expect(result.allTests.length, 'results.allTests was not populated').to.be.equal(1)
@@ -115,7 +114,6 @@ suite('WDIO Mochawesome Tests', () => {
             expect(result.suites.suites[0].tests[0].err.showDiff, 'suites.suites[0].tests[0].err.showDiff is not correct').to.be.true
             expect(result.suites.suites[0].tests[0].err.actual, 'suites.suites[0].tests[0].err.actual is not correct').to.be.equal(1)
             expect(result.suites.suites[0].tests[0].err.expected, 'suites.suites[0].tests[0].err.expected is not correct').to.be.equal(2)
-            expect(result.suites.suites[0].tests[0].context,'result.suites.suites[0].tests[0].context is not empty').to.be.empty
 
             // validate "all" arrays
             expect(result.allTests.length, 'results.allTests was not populated').to.be.equal(1)
@@ -167,7 +165,6 @@ suite('WDIO Mochawesome Tests', () => {
             expect(result.suites.suites[0].tests[0].parentUUID, 'suites.suites[0].tests[0].parentUUID is not correct').to.equal(result.suites.suites[0].uuid)
             expect(result.suites.suites[0].tests[0].state, 'suites.suites[0].tests[0].state is not correct').to.be.undefined
             expect(result.suites.suites[0].pending.length, 'suites.suites[0].pending not populated').to.be.equal(1)
-            expect(result.suites.suites[0].tests[0].context,'result.suites.suites[0].tests[0].context is not empty').to.be.empty
 
             // validate "all" arrays
             expect(result.allTests.length, 'results.allTests was not populated').to.be.equal(1)
@@ -250,8 +247,8 @@ suite('WDIO Mochawesome Tests', () => {
             expect(results).to.have.lengthOf(1)
             let contextData = JSON.parse(results[0].suites.suites[0].tests[0].context)
             expect(contextData).to.not.be.empty
-            expect(contextData[0].title).to.equal("Screenshot: sample.png")
-            expect(contextData[0].value).to.contain("screenshots/sample.png")
+            expect(contextData[1].title).to.equal("Screenshot: sample.png")
+            expect(contextData[1].value).to.contain("screenshots/sample.png")
         })
     })
 
@@ -260,8 +257,8 @@ suite('WDIO Mochawesome Tests', () => {
             expect(results).to.have.lengthOf(1)
             let contextData = JSON.parse(results[0].suites.suites[0].tests[0].context)
             expect(contextData).to.not.be.empty
-            expect(contextData[0].title).to.contain("ERROR_phantomjs")
-            expect(contextData[0].value).to.contain("screenshots/ERROR_phantomjs")
+            expect(contextData[1].title).to.contain("ERROR_phantomjs")
+            expect(contextData[1].value).to.contain("screenshots/ERROR_phantomjs")
         })
     })
 
@@ -279,9 +276,10 @@ suite('WDIO Mochawesome Tests', () => {
             expect(results).to.have.lengthOf(1)
             let result = results[0]
             let contextData = JSON.parse(results[0].suites.suites[0].tests[0].context)
-            expect(contextData).to.have.length(2)
-            expect(contextData[0]).to.contain('content provided to addContext')
-            expect(contextData[1].title).to.contain('Screenshot: sample.png')
+            expect(contextData).to.have.length(3)
+            expect(contextData[0].title).to.contain('Session Id')
+            expect(contextData[1]).to.contain('content provided to addContext')
+            expect(contextData[2].title).to.contain('Screenshot: sample.png')
         })
     })
 
