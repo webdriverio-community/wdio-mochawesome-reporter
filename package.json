@@ -1,6 +1,6 @@
 {
   "name": "wdio-mochawesome-reporter",
-  "version": "1.3.0",
+  "version": "2.0.0-beta.2",
   "description": "A WebdriverIO plugin. Generates json results in Mochawesome format.",
   "author": "Jim Davis <fijijavis@gmail.com>",
   "homepage": "https://github.com/fijijavis/wdio-mochawesome-reporter.git#readme",
@@ -21,6 +21,7 @@
     "hub:start": "phantomjs --webdriver=4444 2>&1 > phantom.log &",
     "hub:stop": "ps -eaf | grep -i phantomjs | awk {'print $2'} | xargs kill -9",
     "test": "mocha ./test/specs/tests.js",
+    "test-v3": "mocha ./test/specs/tests-v3.js",
     "buildreport": "marge --reportDir ./wdio-mochawesome-report/mochawesome ./wdio-mochawesome-report/wdiomochawesome.json"
   },
   "keywords": [

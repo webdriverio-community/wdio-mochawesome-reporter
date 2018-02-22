@@ -1,4 +1,4 @@
-var mochawesomeReporter = require('../../build/reporter')
+var mochawesomeReporter = require('../../build/reporter-v3')
 mochawesomeReporter.reporterName = 'mochawesome'
 
 exports.config = {
