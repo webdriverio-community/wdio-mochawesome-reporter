@@ -4,6 +4,7 @@ node_js:
   - 8.9.2
 
 script:
-  - npm run build
-  - npm run hub:start
-  - npm run test
+  - yarn test:unit
+  - yarn build
+  - yarn hub:start
+  - yarn test:func
