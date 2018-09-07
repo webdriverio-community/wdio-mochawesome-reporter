@@ -1,5 +1,5 @@
 import path from 'path'
-import { sanitizeScreenshotPath } from './sanitizeScreenshotPath';
+import { SanitizeScreenshotPath } from './SanitizeScreenshotPath'
 
 export default function (data, mochawesomeOpts, screenshotPath, sessionId) {
     let testContext = []
@@ -21,7 +21,7 @@ export default function (data, mochawesomeOpts, screenshotPath, sessionId) {
             return cmd.type === 'screenshot'
         })
         if (screenshotCommands.length > 0) {
-            const sp = sanitizeScreenshotPath(mochawesomeOpts, screenshotPath)
+            const sp = SanitizeScreenshotPath(mochawesomeOpts, screenshotPath)
             // https://github.com/adamgruber/mochawesome#example
             screenshotCommands.forEach(cmd => {
                 // if the payload file name does not contain a path, then add the path given in the config file

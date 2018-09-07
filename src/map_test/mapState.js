@@ -1,4 +1,4 @@
-export const mapState = (state) => {
+export const MapState = (state) => {
     switch (state.toLowerCase()) {
     case 'pass':
         return 'passed'
@@ -9,14 +9,14 @@ export const mapState = (state) => {
     }
 }
 
-export const didPass = (state) => {
+export const DidPass = (state) => {
     return state.toLowerCase() === 'pass'
 }
 
-export const didFail = (state) => {
+export const DidFail = (state) => {
     return state.toLowerCase() === 'fail'
 }
 
-export const didSkip = (state) => {
+export const DidSkip = (state) => {
     return state.toLowerCase() === 'pending'
 }

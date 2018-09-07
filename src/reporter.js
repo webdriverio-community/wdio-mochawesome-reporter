@@ -1,4 +1,4 @@
-import { MapTestResult } from './map_test/mapTestResult'
+import MapTestResult from './map_test/MapTestResult'
 import { AddTestResult, MapSuiteResult, UpdateSuiteTotals } from './map_suite'
 import events from 'events'
 import writeResults from './writeResults'

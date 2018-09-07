@@ -1,27 +1,27 @@
 import uuidV4 from 'uuid'
-import { mapState, didFail, didPass, didSkip } from './mapState'
-import mapError from './mapError'
-import buildContext from './buildContext'
+import { MapState, DidFail, DidPass, DidSkip } from './MapState'
+import MapError from './MapError'
+import AddContext from './AddContext'
 
-export const MapTestResult = (data, suiteUUID, config, sessionId) => {
+export default (data, suiteUUID, config, sessionId) => {
     let test = {
         'title': data.title,
         'fullTitle': data.title,
         'timedOut': false,
         'duration': data._duration,
         'speed': 'fast',
-        'pass': didPass(data.state),
-        'fail': didFail(data.state),
-        'pending': didSkip(data.state),
+        'pass': DidPass(data.state),
+        'fail': DidFail(data.state),
+        'pending': DidSkip(data.state),
         'code': '',
         'isRoot': false,
         'uuid': uuidV4(),
         'parentUUID': suiteUUID,
-        'skipped': didSkip(data.state),
+        'skipped': DidSkip(data.state),
         'isHook': false,
-        'context': buildContext(data, config.mochawesomeOpts, config.screenshotPath, sessionId),
-        'state': mapState(data.state),
-        'err': mapError(data.error)
+        'context': AddContext(data, config.mochawesomeOpts, config.screenshotPath, sessionId),
+        'state': MapState(data.state),
+        'err': MapError(data.error)
     }
 
     return test
