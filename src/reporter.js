@@ -1,9 +1,9 @@
 import { MapTestResult } from './map_test/mapTestResult'
+import { MapSuiteResult } from './map_suite/mapSuiteResult'
 import events from 'events'
 import fs from 'fs'
 import mkdirp from 'mkdirp'
 import path from 'path'
-import uuidV4 from 'uuid/v4'
 
 /**
  * Initialize a new `Mochawesome` test reporter.
@@ -59,7 +59,7 @@ class WdioMochawesomeReporter extends events.EventEmitter {
             }
 
             // build the mochawesome root suite.
-            let rootSuite = this.buildSuite(true, {'title': ''})
+            let rootSuite = MapSuiteResult(true, {'title': ''})
             results.suites = rootSuite
 
             // runner loop
@@ -78,7 +78,7 @@ class WdioMochawesomeReporter extends events.EventEmitter {
                         // exclude before all and after all 'suites'
                         if (!suiteInfo.uid.includes('before all') && !suiteInfo.uid.includes('after all') && Object.keys(suiteInfo.tests).length > 0) {
                             suiteInfo.sanitizedCapabilities = sanitizedCapabilities
-                            let suiteResult = this.buildSuite(false, suiteInfo)
+                            let suiteResult = MapSuiteResult(false, suiteInfo)
 
                             // tests loop
                             for (let testName of Object.keys(suiteInfo.tests)) {
@@ -127,55 +127,6 @@ class WdioMochawesomeReporter extends events.EventEmitter {
 
             epilogue.call(baseReporter)
         })
-    }
-
-    // creates a new suite object to be added to the results
-    buildSuite (isRoot, data) {
-        let suite = {
-            'title': '',
-            'suites': [],
-            'tests': [],
-            'pending': [],
-            'root': isRoot,
-            'fullFile': '',
-            'file': '',
-            'passes': [],
-            'failures': [],
-            'skipped': [],
-            'hasTests': false,
-            'hasSuites': false,
-            'totalTests': 0,
-            'totalPasses': 0,
-            'totalFailures': 0,
-            'totalPending': 0,
-            'totalSkipped': 0,
-            'hasPasses': false,
-            'hasFailures': false,
-            'hasPending': false,
-            'hasSkipped': false,
-            'duration': 0,
-            'rootEmpty': data.rootEmpty,
-            '_timeout': 0,
-            'uuid': uuidV4(),
-            'hasBeforeHooks': false,
-            'beforeHooks': [],
-            'hasAfterHooks': false,
-            'afterHooks': []
-        }
-
-        if (!isRoot) {
-            suite.title = data.title
-
-            if (data.sanitizedCapabilities) {
-                suite.title = `${suite.title} (${data.sanitizedCapabilities})`
-            }
-
-            if (data._duration) {
-                suite.duration = data._duration
-            }
-        }
-
-        return suite
     }
 
     // outputs json and html reports
