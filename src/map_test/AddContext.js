@@ -1,5 +1,5 @@
 import path from 'path'
-import { SanitizeScreenshotPath } from './SanitizeScreenshotPath'
+import SanitizeScreenshotPath from './SanitizeScreenshotPath'
 
 export default function (data, mochawesomeOpts, screenshotPath, sessionId) {
     let testContext = []
@@ -10,7 +10,7 @@ export default function (data, mochawesomeOpts, screenshotPath, sessionId) {
     })
     // context can be specified in a Mocha test if there is any add it first
     if (data.context) {
-        testContext.push(JSON.stringify(data.context))
+        testContext.push(data.context)
     }
     if (mochawesomeOpts && mochawesomeOpts.includeScreenshots) {
         /**
@@ -32,15 +32,12 @@ export default function (data, mochawesomeOpts, screenshotPath, sessionId) {
                     })
                 } else {
                     testContext.push({
-                        title: `Screenshot: ${cmd.payload.filename}`,
+                        title: `Screenshot: ${path.basename(cmd.payload.filename)}`,
                         value: cmd.payload.filename
                     })
                 }
             })
         }
     }
-    if (!testContext || testContext.length === 0) {
-    } else {
-        return JSON.stringify(testContext)
-    }
+    return testContext
 }

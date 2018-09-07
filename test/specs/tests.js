@@ -5,7 +5,7 @@ const { clean, run } = require('../helper')
 suite('WDIO Mochawesome Tests', () => {
     setup(clean)
 
-    test.only('Detailed validation of a passing test', () => {
+    test('Detailed validation of a passing test', () => {
         return run(['passing']).then((results) => {
             console.log('evaluating results')
             expect(results).to.have.lengthOf(1)

@@ -5,18 +5,18 @@ export const MapState = (state) => {
     case 'fail':
         return 'failed'
     default:
-        break
+        return state
     }
 }
 
 export const DidPass = (state) => {
-    return state.toLowerCase() === 'pass'
+    return state.toLowerCase() === 'pass' || state.toLowerCase() === 'passed'
 }
 
 export const DidFail = (state) => {
-    return state.toLowerCase() === 'fail'
+    return state.toLowerCase() === 'fail' || state.toLowerCase() === 'failed'
 }
 
 export const DidSkip = (state) => {
-    return state.toLowerCase() === 'pending'
+    return state.toLowerCase() === 'pending' || state.toLowerCase() === 'skipped'
 }

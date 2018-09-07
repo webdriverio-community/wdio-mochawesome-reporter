@@ -19,7 +19,7 @@ export default (data, suiteUUID, config, sessionId) => {
         'parentUUID': suiteUUID,
         'skipped': DidSkip(data.state),
         'isHook': false,
-        'context': AddContext(data, config.mochawesomeOpts, config.screenshotPath, sessionId),
+        'context': JSON.stringify(AddContext(data, config.mochawesomeOpts, config.screenshotPath, sessionId)),
         'state': MapState(data.state),
         'err': MapError(data.error)
     }
