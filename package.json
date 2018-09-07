@@ -16,11 +16,11 @@
   "scripts": {
     "build": "yarn clean && yarn compile",
     "clean": "rm -rf ./build && rm -rf ./screenshots",
-    "compile": "babel lib/ -d build/",
-    "eslint": "eslint ./lib test/",
+    "compile": "babel src/ -d build/",
+    "eslint": "eslint ./src test/",
     "hub:start": "phantomjs --webdriver=4444 2>&1 > phantom.log &",
     "hub:stop": "ps -eaf | grep -i phantomjs | awk {'print $2'} | xargs kill -9",
-    "test": "mocha ./test/specs/tests.js",
+    "test": "yarn build && mocha ./test/specs/tests.js",
     "buildreport": "marge --reportDir ./wdio-mochawesome-report/mochawesome ./wdio-mochawesome-report/wdiomochawesome.json"
   },
   "keywords": [

@@ -1,9 +1,9 @@
-const events = require('events')
-const fs = require('fs')
-const mkdirp = require('mkdirp')
-const path = require('path')
-const uuidV4 = require('uuid/v4')
-const BuildTestResult = require('./mapTestResult')
+import { MapTestResult } from './map_test/mapTestResult'
+import events from 'events'
+import fs from 'fs'
+import mkdirp from 'mkdirp'
+import path from 'path'
+import uuidV4 from 'uuid/v4'
 
 /**
  * Initialize a new `Mochawesome` test reporter.
@@ -82,7 +82,7 @@ class WdioMochawesomeReporter extends events.EventEmitter {
 
                             // tests loop
                             for (let testName of Object.keys(suiteInfo.tests)) {
-                                let testResult = BuildTestResult(suiteInfo.tests[testName], suiteResult.uuid, this.config, runnerInfo.sessionID)
+                                let testResult = MapTestResult(suiteInfo.tests[testName], suiteResult.uuid, this.config, runnerInfo.sessionID)
                                 suiteResult.tests.push(testResult)
                                 results.allTests.push(testResult)
                                 if (testResult.pass) {
