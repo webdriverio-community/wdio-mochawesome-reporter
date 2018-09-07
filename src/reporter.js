@@ -1,10 +1,7 @@
 import { MapTestResult } from './map_test/mapTestResult'
 import { MapSuiteResult } from './map_suite/mapSuiteResult'
 import events from 'events'
-import fs from 'fs'
-import mkdirp from 'mkdirp'
-import path from 'path'
-
+import writeResults from './writeResults'
 /**
  * Initialize a new `Mochawesome` test reporter.
  *
@@ -123,28 +120,10 @@ class WdioMochawesomeReporter extends events.EventEmitter {
             results.stats.passPercent = results.stats.tests === 0 ? 0 : Math.round((results.stats.passes / results.stats.tests) * 100)
             results.stats.pendingPercent = results.stats.tests === 0 ? 0 : Math.round((results.stats.pending / results.stats.tests) * 100)
 
-            this.write(results)
+            writeResults(results, this.options)
 
             epilogue.call(baseReporter)
         })
-    }
-
-    // outputs json and html reports
-    write (json) {
-        if (!this.options || typeof this.options.outputDir !== 'string') {
-            return console.log(`Cannot write json report: empty or invalid 'outputDir'.`)
-        }
-
-        try {
-            const dir = path.resolve(this.options.outputDir)
-            const filename = this.options.mochawesome_filename ? this.options.mochawesome_filename : 'wdiomochawesome.json'
-            const filepath = path.join(dir, filename)
-            mkdirp.sync(dir)
-            fs.writeFileSync(filepath, JSON.stringify(json))
-            console.log(`Wrote json report to [${this.options.outputDir}].`)
-        } catch (e) {
-            console.log(`Failed to write json report to [${this.options.outputDir}]. Error: ${e}`)
-        }
     }
 }
 
