@@ -1,5 +1,5 @@
 import { MapTestResult } from './map_test/mapTestResult'
-import { MapSuiteResult } from './map_suite/mapSuiteResult'
+import { MapSuiteResult, UpdateSuiteTotals, AddTestResult } from './map_suite/mapSuiteResult'
 import events from 'events'
 import writeResults from './writeResults'
 /**
@@ -74,33 +74,24 @@ class WdioMochawesomeReporter extends events.EventEmitter {
 
                         // exclude before all and after all 'suites'
                         if (!suiteInfo.uid.includes('before all') && !suiteInfo.uid.includes('after all') && Object.keys(suiteInfo.tests).length > 0) {
-                            suiteInfo.sanitizedCapabilities = sanitizedCapabilities
-                            let suiteResult = MapSuiteResult(false, suiteInfo)
+                            let suiteResult = MapSuiteResult(false, suiteInfo, sanitizedCapabilities)
 
                             // tests loop
                             for (let testName of Object.keys(suiteInfo.tests)) {
                                 let testResult = MapTestResult(suiteInfo.tests[testName], suiteResult.uuid, this.config, runnerInfo.sessionID)
-                                suiteResult.tests.push(testResult)
+                                suiteResult = AddTestResult(suiteResult, testResult)
+
                                 results.allTests.push(testResult)
                                 if (testResult.pass) {
-                                    suiteResult.passes.push(testResult)
                                     results.allPasses.push(testResult)
                                 } else if (testResult.fail) {
-                                    suiteResult.failures.push(testResult)
                                     results.allFailures.push(testResult)
                                 } else if (testResult.pending) {
-                                    suiteResult.pending.push(testResult)
                                     results.allPending.push(testResult)
                                 }
                             }
-                            suiteResult.totalTests = suiteResult.tests.length
-                            suiteResult.hasTests = suiteResult.tests.length > 0
-                            suiteResult.totalPasses = suiteResult.passes.length
-                            suiteResult.hasPasses = suiteResult.passes.length > 0
-                            suiteResult.totalFailures = suiteResult.failures.length
-                            suiteResult.hasFailures = suiteResult.failures.length > 0
-                            suiteResult.totalPending = suiteResult.pending.length
-                            suiteResult.hasPending = suiteResult.pending.length > 0
+
+                            suiteResult = UpdateSuiteTotals(suiteResult)
 
                             results.suites.suites.push(suiteResult)
                             results.stats.tests += suiteResult.totalTests

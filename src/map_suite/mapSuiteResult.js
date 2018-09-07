@@ -1,6 +1,6 @@
 import uuidV4 from 'uuid/v4'
 
-export const MapSuiteResult = (isRoot, data) => {
+export const MapSuiteResult = (isRoot, data, saniCaps) => {
     let suite = {
         'title': '',
         'suites': [],
@@ -36,8 +36,8 @@ export const MapSuiteResult = (isRoot, data) => {
     if (!isRoot) {
         suite.title = data.title
 
-        if (data.sanitizedCapabilities) {
-            suite.title = `${suite.title} (${data.sanitizedCapabilities})`
+        if (saniCaps) {
+            suite.title = `${suite.title} (${saniCaps})`
         }
 
         if (data._duration) {
@@ -46,4 +46,34 @@ export const MapSuiteResult = (isRoot, data) => {
     }
 
     return suite
+}
+
+export const UpdateSuiteTotals = (suiteResult) => {
+    let result = suiteResult
+
+    result.totalTests = suiteResult.tests.length
+    result.hasTests = suiteResult.tests.length > 0
+    result.totalPasses = suiteResult.passes.length
+    result.hasPasses = suiteResult.passes.length > 0
+    result.totalFailures = suiteResult.failures.length
+    result.hasFailures = suiteResult.failures.length > 0
+    result.totalPending = suiteResult.pending.length
+    result.hasPending = suiteResult.pending.length > 0
+
+    return result
+}
+
+export const AddTestResult = (suiteResult, testResult) => {
+    let result = suiteResult
+
+    result.tests.push(testResult)
+    if (testResult.pass) {
+        result.passes.push(testResult)
+    } else if (testResult.fail) {
+        result.failures.push(testResult)
+    } else if (testResult.pending) {
+        result.pending.push(testResult)
+    }
+
+    return result
 }
