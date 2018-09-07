@@ -1,9 +1,7 @@
 const path = require('path')
-const stringify = require('json-stringify-safe')
 const uuidV4 = require('uuid/v4')
 
-const BuildTestResult = (data,suiteUUID,config,sessionId) => {
-
+const BuildTestResult = (data, suiteUUID, config, sessionId) => {
     let test = {
         'title': data.title,
         'fullTitle': data.title,
@@ -19,28 +17,26 @@ const BuildTestResult = (data,suiteUUID,config,sessionId) => {
         'parentUUID': suiteUUID,
         'skipped': data.state === 'pending',
         'isHook': false,
-        'context': buildContext(data,config.mochawesomeOpts,config.screenshotPath,sessionId),
+        'context': buildContext(data, config.mochawesomeOpts, config.screenshotPath, sessionId),
         'state': formatState(data.state),
         'err': formatError(data.error)
     }
 
     return test
-} 
+}
 
-function formatState (state){
+function formatState (state) {
     switch (state) {
-        case 'pass':
-            return 'passed'
-            break;
-        case 'fail':
-            return 'failed'
-            break;
-        default:
-            break;
+    case 'pass':
+        return 'passed'
+    case 'fail':
+        return 'failed'
+    default:
+        break
     }
 }
 
-function formatError (error){
+function formatError (error) {
     let err = {}
 
     if (error) {
@@ -58,17 +54,17 @@ function formatError (error){
     return err
 }
 
-function buildContext(data,mochawesomeOpts,screenshotPath, sessionId){
+function buildContext (data, mochawesomeOpts, screenshotPath, sessionId) {
     let testContext = []
 
-    //add session id to test context for debugging research
+    // add session id to test context for debugging research
     testContext.push({
-        title: "Session Id",
+        title: 'Session Id',
         value: sessionId
     })
 
-    //context can be specified in a Mocha test if there is any add it first
-    if(data.context){
+    // context can be specified in a Mocha test if there is any add it first
+    if (data.context) {
         testContext.push(JSON.stringify(data.context))
     }
 
@@ -81,39 +77,39 @@ function buildContext(data,mochawesomeOpts,screenshotPath, sessionId){
             return cmd.type === 'screenshot'
         })
         if (screenshotCommands.length > 0) {
-            const sp = sanitizeScreenshotPath(mochawesomeOpts,screenshotPath)
+            const sp = sanitizeScreenshotPath(mochawesomeOpts, screenshotPath)
             // https://github.com/adamgruber/mochawesome#example
             screenshotCommands.forEach(cmd => {
                 // if the payload file name does not contain a path, then add the path given in the config file
                 if (cmd.payload.filename.indexOf(path.sep) === -1) {
                     testContext.push({
-                        title: `Screenshot: ${cmd.payload.filename}`, 
+                        title: `Screenshot: ${cmd.payload.filename}`,
                         value: path.join(sp, cmd.payload.filename)
                     })
                 } else {
                     testContext.push({
-                        title: `Screenshot: ${cmd.payload.filename}`, 
+                        title: `Screenshot: ${cmd.payload.filename}`,
                         value: cmd.payload.filename
                     })
                 }
             })
         }
     }
-    if(!testContext || testContext.length===0){
-        return
+    if (!testContext || testContext.length === 0) {
+
     } else {
         return JSON.stringify(testContext)
     }
 }
 
-function sanitizeScreenshotPath(mochawesomeOpts,screenshotPath){
+function sanitizeScreenshotPath (mochawesomeOpts, screenshotPath) {
     let sp = screenshotPath.replace('//$/', '')
 
-    if(mochawesomeOpts && mochawesomeOpts.screenshotUseRelativePath){
-        //screenshots will be in a folder under the mochawesome report
-        sp = path.join('./',sp)
+    if (mochawesomeOpts && mochawesomeOpts.screenshotUseRelativePath) {
+        // screenshots will be in a folder under the mochawesome report
+        sp = path.join('./', sp)
     } else {
-        //absolute path
+        // absolute path
         sp = path.resolve(sp)
     }
     return sp

@@ -2,9 +2,8 @@ const events = require('events')
 const fs = require('fs')
 const mkdirp = require('mkdirp')
 const path = require('path')
-const stringify = require('json-stringify-safe')
 const uuidV4 = require('uuid/v4')
-const BuildTestResult = require('./TestResult')
+const BuildTestResult = require('./mapTestResult')
 
 /**
  * Initialize a new `Mochawesome` test reporter.
@@ -83,7 +82,7 @@ class WdioMochawesomeReporter extends events.EventEmitter {
 
                             // tests loop
                             for (let testName of Object.keys(suiteInfo.tests)) {
-                                let testResult = BuildTestResult(suiteInfo.tests[testName], suiteResult.uuid, this.config,runnerInfo.sessionID)
+                                let testResult = BuildTestResult(suiteInfo.tests[testName], suiteResult.uuid, this.config, runnerInfo.sessionID)
                                 suiteResult.tests.push(testResult)
                                 results.allTests.push(testResult)
                                 if (testResult.pass) {
