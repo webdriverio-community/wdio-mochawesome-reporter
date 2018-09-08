@@ -5,7 +5,7 @@ export const MapState = (state) => {
     case 'fail':
         return 'failed'
     default:
-        return state
+        break
     }
 }
 

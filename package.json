@@ -20,7 +20,7 @@
     "eslint": "eslint ./src test/",
     "hub:start": "phantomjs --webdriver=4444 2>&1 > phantom.log &",
     "hub:stop": "ps -eaf | grep -i phantomjs | awk {'print $2'} | xargs kill -9",
-    "test:unit": "mocha ./src/**/*.spec.js",
+    "test:unit": "mocha ./src/**/*.spec.js --reporter mochawesome",
     "test:func:local": "yarn build && mocha ./test/specs/tests.js",
     "test:func": "mocha ./test/specs/tests.js",
     "buildreport": "marge --reportDir ./wdio-mochawesome-report/mochawesome ./wdio-mochawesome-report/wdiomochawesome.json"
@@ -57,9 +57,9 @@
     "eslint-plugin-promise": "~3.5.0",
     "eslint-plugin-standard": "~3.0.1",
     "mocha": "~3.4.1",
-    "mochawesome": "~2.3.1",
-    "wdio-selenium-standalone-service": "~0.0.8",
+    "mochawesome": "^3.0.3",
     "wdio-mocha-framework": "~0.5.12",
+    "wdio-selenium-standalone-service": "~0.0.8",
     "webdriverio": "^4.10.1"
   },
   "contributors": [

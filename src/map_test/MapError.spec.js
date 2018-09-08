@@ -33,6 +33,6 @@ describe('MapError Unit Tests', function () {
         expect(err.stack).to.equal(error.stack)
         expect(err.actual).to.equal(error.actual)
         expect(err.expected).to.equal(error.expected)
-        expect(err.showDiff).to.equal(true)
+        expect(err.showDiff).to.be.true // eslint-disable-line no-unused-expressions
     })
 })

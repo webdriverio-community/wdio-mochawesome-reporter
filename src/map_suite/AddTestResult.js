@@ -3,11 +3,11 @@ export default (suiteResult, testResult) => {
     result.tests.push(testResult)
 
     if (testResult.pass) {
-        result.passes.push(testResult)
+        result.passes.push(testResult.uuid)
     } else if (testResult.fail) {
-        result.failures.push(testResult)
+        result.failures.push(testResult.uuid)
     } else if (testResult.pending) {
-        result.pending.push(testResult)
+        result.pending.push(testResult.uuid)
     }
     return result
 }

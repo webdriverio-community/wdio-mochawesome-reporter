@@ -11,42 +11,42 @@ describe('MapState Unit Tests', function () {
     })
 
     it('Should return true when calling DidPass with a state of pass', function () {
-        expect(DidPass('pass')).to.equal(true)
+        expect(DidPass('pass')).to.be.true // eslint-disable-line no-unused-expressions
     })
 
     it('Should return true when calling DidPass with a state of passed', function () {
-        expect(DidPass('passed')).to.equal(true)
+        expect(DidPass('passed')).to.be.true // eslint-disable-line no-unused-expressions
     })
 
     it('Should return false when calling DidPass with a state of fail', function () {
-        expect(DidPass('fail')).to.equal(false)
+        expect(DidPass('fail')).to.be.false // eslint-disable-line no-unused-expressions
     })
 
     it('Should return true when calling DidFail with a state of fail', function () {
-        expect(DidFail('fail')).to.equal(true)
+        expect(DidFail('fail')).to.be.true // eslint-disable-line no-unused-expressions
     })
 
     it('Should return true when calling DidFail with a state of failed', function () {
-        expect(DidFail('failed')).to.equal(true)
+        expect(DidFail('failed')).to.be.true // eslint-disable-line no-unused-expressions
     })
 
     it('Should return false when calling DidFail with a state of pass', function () {
-        expect(DidFail('pass')).to.equal(false)
+        expect(DidFail('pass')).to.be.false // eslint-disable-line no-unused-expressions
     })
 
     it('Should return true when calling DidSkip with a state of skipped', function () {
-        expect(DidSkip('skipped')).to.equal(true)
+        expect(DidSkip('skipped')).to.be.true // eslint-disable-line no-unused-expressions
     })
 
     it('Should return true when calling DidSkip with a state of pending', function () {
-        expect(DidSkip('pending')).to.equal(true)
+        expect(DidSkip('pending')).to.be.true // eslint-disable-line no-unused-expressions
     })
 
     it('Should return false when calling DidSkip with a state of pass', function () {
-        expect(DidSkip('pass')).to.equal(false)
+        expect(DidSkip('pass')).to.be.false // eslint-disable-line no-unused-expressions
     })
 
-    it('Should return original state for unknown values', function () {
-        expect(MapState('pending')).to.equal('pending')
+    it('Should return undefined for unknown values', function () {
+        expect(MapState('pending')).to.be.undefined // eslint-disable-line no-unused-expressions
     })
 })

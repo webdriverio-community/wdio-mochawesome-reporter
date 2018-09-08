@@ -68,10 +68,10 @@ describe('MapTestResult Unit Tests', function () {
         expect(result.fullTitle).to.equal(data.title)
         expect(result.context).to.equal('[{"title":"Session Id","value":"abc123"}]')
         expect(result.duration).to.equal(data._duration)
-        expect(result.state).to.equal(data.state)
-        expect(result.pass).to.equal(false)
-        expect(result.fail).to.equal(false)
-        expect(result.pending).to.equal(true)
+        expect(result.state).to.be.undefined // eslint-disable-line no-unused-expressions
+        expect(result.pass).to.be.false // eslint-disable-line no-unused-expressions
+        expect(result.fail).to.be.false // eslint-disable-line no-unused-expressions
+        expect(result.pending).to.be.true // eslint-disable-line no-unused-expressions
         expect(result.parentUUID).to.equal(suiteId)
         expect(result.err).to.be.empty // eslint-disable-line no-unused-expressions
     })

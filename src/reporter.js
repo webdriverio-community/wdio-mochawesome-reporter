@@ -1,5 +1,5 @@
 import { MapTestResult } from './map_test'
-import { AddTestResult, MapSuiteResult, UpdateSuiteTotals } from './map_suite'
+import { AddTestResult, MapSuiteResult } from './map_suite'
 import events from 'events'
 import writeResults from './writeResults'
 import { InitStats, UpdateStats } from './map_stats'
@@ -28,10 +28,6 @@ class WdioMochawesomeReporter extends events.EventEmitter {
             const results = {
                 stats: InitStats(this.baseReporter),
                 suites: [],
-                allTests: [],
-                allPending: [],
-                allPasses: [],
-                allFailures: [],
                 copyrightYear: new Date().getFullYear()
             }
 
@@ -60,20 +56,11 @@ class WdioMochawesomeReporter extends events.EventEmitter {
                             for (let testName of Object.keys(suiteInfo.tests)) {
                                 let testResult = MapTestResult(suiteInfo.tests[testName], suiteResult.uuid, this.config, runnerInfo.sessionID)
                                 suiteResult = AddTestResult(suiteResult, testResult)
-
-                                results.allTests.push(testResult)
-                                if (testResult.pass) {
-                                    results.allPasses.push(testResult)
-                                } else if (testResult.fail) {
-                                    results.allFailures.push(testResult)
-                                } else if (testResult.pending) {
-                                    results.allPending.push(testResult)
-                                }
+                                results.stats = UpdateStats(results.stats, testResult)
                             }
 
-                            suiteResult = UpdateSuiteTotals(suiteResult)
                             results.suites.suites.push(suiteResult)
-                            results.stats = UpdateStats(results.stats, suiteResult)
+                            results.stats.suites += 1
                         }
                     }
                 }

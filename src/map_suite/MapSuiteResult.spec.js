@@ -10,7 +10,7 @@ describe('MapSuiteResult Unit Tests', function () {
         var suiteResult = MapSuiteResult(false, data, 'phantomjs')
         expect(suiteResult.title).to.equal('Sample Suite (phantomjs)')
         expect(suiteResult.duration).to.equal(500)
-        expect(suiteResult.root).to.equal(false)
+        expect(suiteResult.root).to.be.false // eslint-disable-line no-unused-expressions
         expect(suiteResult.uuid).to.be.not.empty // eslint-disable-line no-unused-expressions
     })
 })
