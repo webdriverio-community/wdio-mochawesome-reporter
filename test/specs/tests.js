@@ -163,7 +163,7 @@ suite('WDIO Mochawesome Tests', () => {
             expect(result.suites.suites[0].tests[0].skipped, 'suites.suites[0].tests[0].skipped is not correct').to.be.true
             expect(result.suites.suites[0].tests[0].uuid, 'suites.suites[0].tests[0].uuid is not correct').to.not.be.empty
             expect(result.suites.suites[0].tests[0].parentUUID, 'suites.suites[0].tests[0].parentUUID is not correct').to.equal(result.suites.suites[0].uuid)
-            expect(result.suites.suites[0].tests[0].state, 'suites.suites[0].tests[0].state is not correct').to.be.undefined
+            expect(result.suites.suites[0].tests[0].state, 'suites.suites[0].tests[0].state is not correct').to.equal('pending')
             expect(result.suites.suites[0].pending.length, 'suites.suites[0].pending not populated').to.be.equal(1)
 
             // validate "all" arrays
@@ -238,7 +238,7 @@ suite('WDIO Mochawesome Tests', () => {
     test('Should include content provided to addContext', function() {
         return run(['addContext']).then((results) => {
             let contextData = JSON.parse(results[0].allTests[0].context)
-            expect(contextData).to.be.an('array').that.includes('"content provided to addContext"')
+            expect(contextData).to.be.an('array').that.includes('content provided to addContext')
         })
     })
 
