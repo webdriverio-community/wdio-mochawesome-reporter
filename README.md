@@ -68,10 +68,8 @@ In summary...
 
 * Add the package to your project
 ```shell
-npm install --save mochawesome-report-generator@2.3.2
+npm install --save mochawesome-report-generator
 ```
-
-**NOTE** wdio-mochawesome-reporter is NOT compatible with the 3.x versions of the mochawesome-report-generator
 
 * Add a script to your package.json to generate the report
 ```json
@@ -81,3 +79,8 @@ npm install --save mochawesome-report-generator@2.3.2
 ```
 1) `path/to/results.json` = path and name of json file
 2) `--reportTitle 'My Project Results' = unique report title
+
+## Version Compatibility
+v1.x of ```wdio-mochawesome-reporter``` is compatible with ```2.3.2``` of ```mochawesome-report-generator```
+
+v2.x of ```wdio-mochawesome-reporter``` is compatible with version ```3.1.3``` of ```mochawesome-report-generator```

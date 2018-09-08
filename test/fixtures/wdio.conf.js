@@ -6,7 +6,7 @@ exports.config = {
     host: 'localhost',
     port: 4444,
     coloredLogs: true,
-    logLevel: 'verbose',
+    logLevel: 'silent',
     reporters: [mochawesomeReporter],
     framework: 'mocha',
     mochaOpts: {

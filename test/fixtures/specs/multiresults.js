@@ -16,7 +16,9 @@ suite('A suite', () => {
     test('first failing test', () => {
         expect(1).to.be.equal(2)
     })
+})
 
+suite('A second suite', () =>{
     test('second failing test', () => {
         expect(1).to.be.equal(2)
     })
