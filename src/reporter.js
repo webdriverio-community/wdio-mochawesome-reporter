@@ -2,6 +2,7 @@ import { MapTestResult } from './map_test'
 import { AddTestResult, MapSuiteResult, UpdateSuiteTotals } from './map_suite'
 import events from 'events'
 import writeResults from './writeResults'
+import { InitStats, UpdateStats } from './map_stats'
 /**
  * Initialize a new `Mochawesome` test reporter.
  *
@@ -23,30 +24,9 @@ class WdioMochawesomeReporter extends events.EventEmitter {
         const { epilogue } = this.baseReporter
 
         this.on('end', () => {
-            // statistics about overall execution results
-            const stats = {
-                'suites': 0,
-                'tests': 0,
-                'passes': 0,
-                'pending': 0,
-                'failures': 0,
-                'start': this.baseReporter.stats.start,
-                'end': this.baseReporter.stats.end,
-                'duration': this.baseReporter.stats._duration,
-                'testsRegistered': 0,
-                'passPercent': 0,
-                'pendingPercent': 0,
-                'other': 0,
-                'hasOther': false,
-                'skipped': 0,
-                'hasSkipped': false,
-                'passPercentClass': 'success',
-                'pendingPercentClass': 'danger'
-            }
-
             // structure for mochawesome json reporter
             const results = {
-                stats: stats,
+                stats: InitStats(this.baseReporter),
                 suites: [],
                 allTests: [],
                 allPending: [],
@@ -92,27 +72,14 @@ class WdioMochawesomeReporter extends events.EventEmitter {
                             }
 
                             suiteResult = UpdateSuiteTotals(suiteResult)
-
                             results.suites.suites.push(suiteResult)
-                            results.stats.tests += suiteResult.totalTests
-                            results.stats.testsRegistered += suiteResult.totalTests
-                            results.stats.passes += suiteResult.totalPasses
-                            results.stats.failures += suiteResult.totalFailures
-                            results.stats.pending += suiteResult.totalPending
+                            results.stats = UpdateStats(results.stats, suiteResult)
                         }
                     }
-
-                    results.stats.suites = results.suites.suites.length
-                    results.suites.hasSuites = results.suites.suites.length > 0
                 }
             }
 
-            // calculate percentages for overall summary
-            results.stats.passPercent = results.stats.tests === 0 ? 0 : Math.round((results.stats.passes / results.stats.tests) * 100)
-            results.stats.pendingPercent = results.stats.tests === 0 ? 0 : Math.round((results.stats.pending / results.stats.tests) * 100)
-
             writeResults(results, this.options)
-
             epilogue.call(baseReporter)
         })
     }
