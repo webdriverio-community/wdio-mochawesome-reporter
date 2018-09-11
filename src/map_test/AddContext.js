@@ -10,8 +10,15 @@ export default function (data, mochawesomeOpts, screenshotPath, sessionId) {
     })
     // context can be specified in a Mocha test if there is any add it first
     if (data.context) {
-        testContext.push(data.context)
+        if (Array.isArray(data.context)) {
+            data.context.forEach((ctx) => {
+                testContext.push(ctx)
+            })
+        } else {
+            testContext.push(data.context)
+        }
     }
+
     if (mochawesomeOpts && mochawesomeOpts.includeScreenshots) {
         /**
          * output is a log of all the wdio commands issued for a test
