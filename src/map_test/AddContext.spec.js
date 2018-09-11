@@ -25,6 +25,27 @@ describe('AddContext Unit Tests', function () {
         expect(context[1].value).to.equal('this is a test')
     })
 
+    it('Should return multiple context provided by a test', function () {
+        const data = {
+            context: [{
+                title: 'sample context',
+                value: 'this is a test'
+            },
+            {
+                title: 'sample context2',
+                value: 'another test'
+            }]
+        }
+        let context = AddContext(data, {}, '', 'abc123')
+        expect(context.length).to.equal(3)
+        expect(context[0].title).to.equal('Session Id')
+        expect(context[0].value).to.equal('abc123')
+        expect(context[1].title).to.equal('sample context')
+        expect(context[1].value).to.equal('this is a test')
+        expect(context[2].title).to.equal('sample context2')
+        expect(context[2].value).to.equal('another test')
+    })
+
     it('Should return screenshots as context when file name does not include path', function () {
         const mochawesomOpts = { includeScreenshots: true }
         const data = {

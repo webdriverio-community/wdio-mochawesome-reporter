@@ -227,11 +227,21 @@ suite('WDIO Mochawesome Tests', () => {
 
     test('Should include sessionId as context',function(){
         return run(['sessionId','wdio-ma']).then((results) => {
-            console.log('evaluating results')
             expect(results).to.have.lengthOf(1)
             let contextData = JSON.parse(results[0].suites.suites[0].tests[0].context)
             expect(contextData[0].title).to.be.equal("Session Id")
             expect(contextData[0].value).to.not.be.empty
+        })
+    })
+
+    test('Should support multiple added context',function (){
+        return run(['addContextMultiple'],'wdio-ma').then((results)=>{
+            expect(results).to.have.lengthOf(1)
+            let contextData = JSON.parse(results[0].suites.suites[0].tests[0].context)
+            expect(contextData).to.have.length(3)
+            expect(contextData[0].title).to.contain('Session Id')
+            expect(contextData[1]).to.contain('hello')
+            expect(contextData[2]).to.contain('world')
         })
     })
 })
