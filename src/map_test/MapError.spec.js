@@ -1,5 +1,4 @@
-import MapError from './MapError'
-const expect = require('chai').expect
+const MapError = require('./MapError')
 
 describe('MapError Unit Tests', function () {
     it('Should return error object without actual and expected', function () {
@@ -11,10 +10,10 @@ describe('MapError Unit Tests', function () {
 
         let err = MapError(error)
 
-        expect(err.name).to.equal(error.type)
-        expect(err.message).to.equal(error.message)
-        expect(err.estack).to.equal(error.stack)
-        expect(err.stack).to.equal(error.stack)
+        expect(err.name).toBe(error.type)
+        expect(err.message).toBe(error.message)
+        expect(err.estack).toBe(error.stack)
+        expect(err.stack).toBe(error.stack)
     })
     it('Should return error object with actual and expected', function () {
         const error = {
@@ -27,12 +26,12 @@ describe('MapError Unit Tests', function () {
 
         let err = MapError(error)
 
-        expect(err.name).to.equal(error.type)
-        expect(err.message).to.equal(error.message)
-        expect(err.estack).to.equal(error.stack)
-        expect(err.stack).to.equal(error.stack)
-        expect(err.actual).to.equal(error.actual)
-        expect(err.expected).to.equal(error.expected)
-        expect(err.showDiff).to.be.true // eslint-disable-line no-unused-expressions
+        expect(err.name).toBe(error.type)
+        expect(err.message).toBe(error.message)
+        expect(err.estack).toBe(error.stack)
+        expect(err.stack).toBe(error.stack)
+        expect(err.actual).toBe(error.actual)
+        expect(err.expected).toBe(error.expected)
+        expect(err.showDiff).toBe(true)
     })
 })

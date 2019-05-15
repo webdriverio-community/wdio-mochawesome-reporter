@@ -7,6 +7,6 @@
     "browser": true
   },
   "env": {
-      "mocha": true
-  }
+    "jest": true
+}
 }

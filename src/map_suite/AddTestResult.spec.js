@@ -1,5 +1,4 @@
-import AddTestResult from './AddTestResult'
-const expect = require('chai').expect
+const AddTestResult = require('./AddTestResult')
 
 describe('AddTestResult Unit Tests', function () {
     it('Should successfully Add A Passing Test', function () {
@@ -10,8 +9,8 @@ describe('AddTestResult Unit Tests', function () {
         }
         let suiteResult = AddTestResult({tests: [], passes: []}, testResult)
 
-        expect(suiteResult.tests.length).to.equal(1)
-        expect(suiteResult.passes.length).to.equal(1)
+        expect(suiteResult.tests.length).toBe(1)
+        expect(suiteResult.passes.length).toBe(1)
     })
     it('Should successfully Add A Failing Test', function () {
         const testResult = {
@@ -21,8 +20,8 @@ describe('AddTestResult Unit Tests', function () {
         }
         let suiteResult = AddTestResult({tests: [], failures: []}, testResult)
 
-        expect(suiteResult.tests.length).to.equal(1)
-        expect(suiteResult.failures.length).to.equal(1)
+        expect(suiteResult.tests.length).toBe(1)
+        expect(suiteResult.failures.length).toBe(1)
     })
     it('Should successfully Add A Pending Test', function () {
         const testResult = {
@@ -32,7 +31,7 @@ describe('AddTestResult Unit Tests', function () {
         }
         let suiteResult = AddTestResult({tests: [], pending: []}, testResult)
 
-        expect(suiteResult.tests.length).to.equal(1)
-        expect(suiteResult.pending.length).to.equal(1)
+        expect(suiteResult.tests.length).toBe(1)
+        expect(suiteResult.pending.length).toBe(1)
     })
 })

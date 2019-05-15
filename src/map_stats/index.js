@@ -1,4 +1,4 @@
-import InitStats from './InitStats'
-import UpdateStats from './UpdateStats'
+const InitStats = require('./InitStats')
+const UpdateStats = require('./UpdateStats')
 
-export { InitStats, UpdateStats }
+module.exports = { InitStats, UpdateStats }

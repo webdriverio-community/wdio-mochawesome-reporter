@@ -1,6 +1,5 @@
-import MapTestResult from './MapTestResult'
-import uuidV4 from 'uuid'
-const expect = require('chai').expect
+const MapTestResult = require('./MapTestResult')
+const uuidV4 = require('uuid')
 
 describe('MapTestResult Unit Tests', function () {
     it('Should return a vaild passing test', function () {
@@ -11,16 +10,16 @@ describe('MapTestResult Unit Tests', function () {
             state: 'pass'
         }
         let result = MapTestResult(data, suiteId, {}, 'abc123')
-        expect(result.title).to.equal(data.title)
-        expect(result.fullTitle).to.equal(data.title)
-        expect(result.context).to.equal('[{"title":"Session Id","value":"abc123"}]')
-        expect(result.duration).to.equal(1200)
-        expect(result.state).to.equal('passed')
-        expect(result.pass).to.equal(true)
-        expect(result.fail).to.equal(false)
-        expect(result.pending).to.equal(false)
-        expect(result.parentUUID).to.equal(suiteId)
-        expect(result.err).to.be.empty // eslint-disable-line no-unused-expressions
+        expect(result.title).toBe(data.title)
+        expect(result.fullTitle).toBe(data.title)
+        expect(result.context).toBe('[{"title":"Session Id","value":"abc123"}]')
+        expect(result.duration).toBe(1200)
+        expect(result.state).toBe('passed')
+        expect(result.pass).toBe(true)
+        expect(result.fail).toBe(false)
+        expect(result.pending).toBe(false)
+        expect(result.parentUUID).toBe(suiteId)
+        expect(result.err).toMatchObject({}) // eslint-disable-line no-unused-expressions
     })
 
     it('Should return a vaild failing test', function () {
@@ -38,22 +37,22 @@ describe('MapTestResult Unit Tests', function () {
             }
         }
         let result = MapTestResult(data, suiteId, {}, 'abc123')
-        expect(result.title).to.equal(data.title)
-        expect(result.fullTitle).to.equal(data.title)
-        expect(result.context).to.equal('[{"title":"Session Id","value":"abc123"}]')
-        expect(result.duration).to.equal(1200)
-        expect(result.state).to.equal('failed')
-        expect(result.pass).to.equal(false)
-        expect(result.fail).to.equal(true)
-        expect(result.pending).to.equal(false)
-        expect(result.parentUUID).to.equal(suiteId)
-        expect(result.err.name).to.equal(data.error.type)
-        expect(result.err.message).to.equal(data.error.message)
-        expect(result.err.estack).to.equal(data.error.stack)
-        expect(result.err.stack).to.equal(data.error.stack)
-        expect(result.err.actual).to.equal(data.error.actual)
-        expect(result.err.expected).to.equal(data.error.expected)
-        expect(result.err.showDiff).to.equal(true)
+        expect(result.title).toBe(data.title)
+        expect(result.fullTitle).toBe(data.title)
+        expect(result.context).toBe('[{"title":"Session Id","value":"abc123"}]')
+        expect(result.duration).toBe(1200)
+        expect(result.state).toBe('failed')
+        expect(result.pass).toBe(false)
+        expect(result.fail).toBe(true)
+        expect(result.pending).toBe(false)
+        expect(result.parentUUID).toBe(suiteId)
+        expect(result.err.name).toBe(data.error.type)
+        expect(result.err.message).toBe(data.error.message)
+        expect(result.err.estack).toBe(data.error.stack)
+        expect(result.err.stack).toBe(data.error.stack)
+        expect(result.err.actual).toBe(data.error.actual)
+        expect(result.err.expected).toBe(data.error.expected)
+        expect(result.err.showDiff).toBe(true)
     })
 
     it('Should return a vaild skipped test', function () {
@@ -64,15 +63,15 @@ describe('MapTestResult Unit Tests', function () {
             state: 'pending'
         }
         let result = MapTestResult(data, suiteId, {}, 'abc123')
-        expect(result.title).to.equal(data.title)
-        expect(result.fullTitle).to.equal(data.title)
-        expect(result.context).to.equal('[{"title":"Session Id","value":"abc123"}]')
-        expect(result.duration).to.equal(data._duration)
-        expect(result.state).to.be.undefined // eslint-disable-line no-unused-expressions
-        expect(result.pass).to.be.false // eslint-disable-line no-unused-expressions
-        expect(result.fail).to.be.false // eslint-disable-line no-unused-expressions
-        expect(result.pending).to.be.true // eslint-disable-line no-unused-expressions
-        expect(result.parentUUID).to.equal(suiteId)
-        expect(result.err).to.be.empty // eslint-disable-line no-unused-expressions
+        expect(result.title).toBe(data.title)
+        expect(result.fullTitle).toBe(data.title)
+        expect(result.context).toBe('[{"title":"Session Id","value":"abc123"}]')
+        expect(result.duration).toBe(data._duration)
+        expect(result.state).toBe(undefined)
+        expect(result.pass).toBe(false)
+        expect(result.fail).toBe(false)
+        expect(result.pending).toBe(true)
+        expect(result.parentUUID).toBe(suiteId)
+        expect(result.err).toMatchObject({})
     })
 })

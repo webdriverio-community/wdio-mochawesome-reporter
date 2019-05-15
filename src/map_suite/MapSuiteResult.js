@@ -1,6 +1,6 @@
-import uuidV4 from 'uuid/v4'
+const uuidV4 = require('uuid/v4')
 
-export default (isRoot, data, saniCaps) => {
+module.exports = (isRoot, data, saniCaps) => {
     let suite = {
         'title': '',
         'suites': [],

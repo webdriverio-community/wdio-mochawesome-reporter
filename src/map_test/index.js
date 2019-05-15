@@ -1,7 +1,7 @@
-import AddContext from './AddContext'
-import MapError from './MapError'
-import MapState from './MapState'
-import MapTestResult from './MapTestResult'
-import SanitizeScreenshotPath from './SanitizeScreenshotPath'
+const AddContext = require('./AddContext')
+const MapError = require('./MapError')
+const MapState = require('./MapState')
+const MapTestResult = require('./MapTestResult')
+const SanitizeScreenshotPath = require('./SanitizeScreenshotPath')
 
-export { AddContext, MapError, MapTestResult, MapState, SanitizeScreenshotPath }
+module.exports = { AddContext, MapError, MapState, MapTestResult, SanitizeScreenshotPath }

@@ -1,4 +1,4 @@
-import AddTestResult from './AddTestResult'
-import MapSuiteResult from './MapSuiteResult'
+const AddTestResult = require('./AddTestResult')
+const MapSuiteResult = require('./MapSuiteResult')
 
-export { AddTestResult, MapSuiteResult }
+module.exports = { AddTestResult, MapSuiteResult }

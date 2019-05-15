@@ -1,4 +1,4 @@
-export default (currStats, results) => {
+module.exports = (currStats, results) => {
     let stats = currStats
 
     stats.tests += 1

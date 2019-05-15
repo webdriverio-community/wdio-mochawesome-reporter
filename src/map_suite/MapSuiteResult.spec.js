@@ -1,5 +1,4 @@
-import MapSuiteResult from './MapSuiteResult'
-const expect = require('chai').expect
+const MapSuiteResult = require('./MapSuiteResult')
 
 describe('MapSuiteResult Unit Tests', function () {
     it('Should return a vaild Test Suite', function () {
@@ -8,9 +7,9 @@ describe('MapSuiteResult Unit Tests', function () {
             '_duration': 500
         }
         var suiteResult = MapSuiteResult(false, data, 'phantomjs')
-        expect(suiteResult.title).to.equal('Sample Suite (phantomjs)')
-        expect(suiteResult.duration).to.equal(500)
-        expect(suiteResult.root).to.be.false // eslint-disable-line no-unused-expressions
-        expect(suiteResult.uuid).to.be.not.empty // eslint-disable-line no-unused-expressions
+        expect(suiteResult.title).toBe('Sample Suite (phantomjs)')
+        expect(suiteResult.duration).toBe(500)
+        expect(suiteResult.root).toBe(false)
+        expect(suiteResult.uuid).toMatch(/\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/)
     })
 })

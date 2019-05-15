@@ -1,4 +1,4 @@
-export default (suiteResult, testResult) => {
+module.exports = (suiteResult, testResult) => {
     let result = suiteResult
     result.tests.push(testResult)
 

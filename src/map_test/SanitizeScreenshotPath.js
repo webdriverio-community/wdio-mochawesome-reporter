@@ -1,8 +1,8 @@
-import path from 'path'
+const path = require('path')
 
-export default function (mochawesomeOpts, screenshotPath) {
-    let sp = screenshotPath.replace('//$/', '')
-    if (mochawesomeOpts && mochawesomeOpts.screenshotUseRelativePath) {
+module.exports = function (opts) {
+    let sp = opts.outputDir.replace('//$/', '')
+    if (opts.screenshotUseRelativePath) {
         // screenshots will be in a folder under the mochawesome report
         sp = path.join('./', sp)
     } else {

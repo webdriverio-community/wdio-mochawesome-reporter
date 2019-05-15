@@ -1,7 +1,7 @@
-import path from 'path'
-import SanitizeScreenshotPath from './SanitizeScreenshotPath'
+const path = require('path')
+const SanitizeScreenshotPath = require('./SanitizeScreenshotPath')
 
-export default function (data, mochawesomeOpts, screenshotPath, sessionId) {
+module.exports = function (data, opts, sessionId) {
     let testContext = []
     // add session id to test context for debugging research
     testContext.push({
@@ -19,7 +19,7 @@ export default function (data, mochawesomeOpts, screenshotPath, sessionId) {
         }
     }
 
-    if (mochawesomeOpts && mochawesomeOpts.includeScreenshots) {
+    if (opts && opts.includeScreenshots) {
         /**
          * output is a log of all the wdio commands issued for a test
          * we can filter this for any screenshot commands and include them in the context array
@@ -28,7 +28,7 @@ export default function (data, mochawesomeOpts, screenshotPath, sessionId) {
             return cmd.type === 'screenshot'
         })
         if (screenshotCommands.length > 0) {
-            const sp = SanitizeScreenshotPath(mochawesomeOpts, screenshotPath)
+            const sp = SanitizeScreenshotPath(opts)
             // https://github.com/adamgruber/mochawesome#example
             screenshotCommands.forEach(cmd => {
                 // if the payload file name does not contain a path, then add the path given in the config file

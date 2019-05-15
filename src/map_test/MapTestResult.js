@@ -1,9 +1,9 @@
-import uuidV4 from 'uuid'
-import { MapState, DidFail, DidPass, DidSkip } from './MapState'
-import MapError from './MapError'
-import AddContext from './AddContext'
+const uuidV4 = require('uuid')
+const { MapState, DidFail, DidPass, DidSkip } = require('./MapState')
+const MapError = require('./MapError')
+const AddContext = require('./AddContext')
 
-export default (data, suiteUUID, config, sessionId) => {
+module.exports = (data, suiteUUID, opts, sessionId) => {
     let test = {
         'title': data.title,
         'fullTitle': data.title,
@@ -19,7 +19,7 @@ export default (data, suiteUUID, config, sessionId) => {
         'parentUUID': suiteUUID,
         'skipped': DidSkip(data.state),
         'isHook': false,
-        'context': JSON.stringify(AddContext(data, config.mochawesomeOpts, config.screenshotPath, sessionId)),
+        'context': JSON.stringify(AddContext(data, opts, sessionId)),
         'state': MapState(data.state),
         'err': MapError(data.error)
     }
