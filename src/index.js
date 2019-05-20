@@ -32,8 +32,8 @@ class WdioMochawesomeReporter extends WDIOReporter {
     }
 
     onAfterCommand (cmd) {
-        const isScrenshotEndpoint = /\/session\/[^/]*\/screenshot/
-        if (isScrenshotEndpoint.test(cmd.endpoint) && cmd.result.value) {
+        const isScreenshotEndpoint = /\/session\/[^/]*\/screenshot/
+        if (isScreenshotEndpoint.test(cmd.endpoint) && cmd.result.value) {
             this.currTest.addScreenshotContext(cmd.result.value)
         }
     }
@@ -52,7 +52,7 @@ class WdioMochawesomeReporter extends WDIOReporter {
 
     onSuiteEnd (suite) {
         this.currSuite.duration = suite.duration
-        this.results.suites.suites.push(this.currSuite)
+        this.results.suites.addSuite(this.currSuite)
     }
 
     onRunnerEnd (runner) {

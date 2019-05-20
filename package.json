@@ -43,6 +43,12 @@
     "Jim Davis"
   ],
   "peerDependencies": {
-    "@wdio/cli": "^5.8.4"
+    "@wdio/cli": "^5.8.4",
+    "mochawesome-report-generator": "^3.1.5"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "./src"
+    ]
   }
 }

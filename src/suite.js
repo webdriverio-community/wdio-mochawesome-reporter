@@ -24,16 +24,15 @@ module.exports = class {
             if (saniCaps) {
                 this.title = `${this.title} (${saniCaps})`
             }
-
-            if (data._duration) {
-                this.duration = data._duration
-            }
         }
+    }
+
+    addSuite (suite) {
+        this.suites.push(suite)
     }
 
     addTest (test) {
         this.tests.push(test)
-
         if (test.pass) {
             this.passes.push(test.uuid)
         } else if (test.fail) {
