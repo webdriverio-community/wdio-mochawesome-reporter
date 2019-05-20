@@ -11,7 +11,7 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "eslint": "eslint ./src test/",
+    "lint": "eslint ./src test/",
     "test": "jest"
   },
   "keywords": [

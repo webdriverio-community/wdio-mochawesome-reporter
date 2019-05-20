@@ -1,7 +1,7 @@
 const WDIOReporter = require('@wdio/reporter').default
-const { InitStats, UpdateStats } = require('./map_stats')
-const { MapSuiteResult, AddTestResult } = require('./map_suite')
-const { MapTestResult } = require('./map_test')
+const Suite = require('./suite')
+const Stats = require('./stats')
+const Test = require('./test')
 
 class WdioMochawesomeReporter extends WDIOReporter {
     constructor (options) {
@@ -9,38 +9,56 @@ class WdioMochawesomeReporter extends WDIOReporter {
         super(options)
     }
 
-    onRunnerEnd (runner) {
-        let json = this.prepareJson(runner)
-        this.write(JSON.stringify(json))
-    }
-
-    prepareJson (runner) {
-        let results = {
-            stats: InitStats(runner),
-            suites: [],
+    onRunnerStart (runner) {
+        this.config = runner.config
+        this.sanitizedCaps = runner.sanitizedCapabilities
+        this.sessionId = runner.sessionId
+        // mochawesome requires this root suite for HTML report generation to work properly
+        this.results = {
+            stats: new Stats(runner.start),
+            suites: new Suite(true, {'title': ''}),
             copyrightYear: new Date().getFullYear()
         }
+    }
 
-        // mochawesome requires this root suite for HTML report generation to work properly
-        results.suites = MapSuiteResult(true, {'title': ''})
-        for (let suiteKey of Object.keys(this.suites)) {
-            const suiteInfo = this.suites[suiteKey]
-            if (!suiteInfo.uid.includes('before all') && !suiteInfo.uid.includes('after all') && Object.keys(suiteInfo.tests).length > 0) {
-                let suiteResult = MapSuiteResult(false, suiteInfo, runner.sanitizedCapabilities)
+    onSuiteStart (suite) {
+        this.currSuite = new Suite(false, suite, this.sanitizedCaps)
+        this.results.stats.incrementSuites()
+    }
 
-                // tests loop
-                for (let testName of Object.keys(suiteInfo.tests)) {
-                    let testResult = MapTestResult(suiteInfo.tests[testName], suiteResult.uuid, runner.config, runner.sessionId)
-                    suiteResult = AddTestResult(suiteResult, testResult)
-                    results.stats = UpdateStats(results.stats, testResult)
-                }
+    onTestStart (test) {
+        this.currTest = new Test(test, this.currSuite.uuid)
+        this.currTest.addSessionContext(this.sessionId)
+    }
 
-                results.suites.suites.push(suiteResult)
-                results.stats.suites += 1
-            }
+    onAfterCommand (cmd) {
+        const isScrenshotEndpoint = /\/session\/[^/]*\/screenshot/
+        if (isScrenshotEndpoint.test(cmd.endpoint) && cmd.result.value) {
+            this.currTest.addScreenshotContext(cmd.result.value)
         }
+    }
 
-        return results
+    onTestEnd (test) {
+        // skipped tests do not emit the TestStart event
+        if (!this.currTest) {
+            this.currTest = new Test(test, this.currSuite.uuid)
+        }
+        this.currTest.duration = test._duration
+        this.currTest.updateResult(test)
+        this.currTest.context = JSON.stringify(this.currTest.context)
+        this.currSuite.addTest(this.currTest)
+        this.results.stats.incrementTests(this.currTest)
+    }
+
+    onSuiteEnd (suite) {
+        this.currSuite.duration = suite.duration
+        this.results.suites.suites.push(this.currSuite)
+    }
+
+    onRunnerEnd (runner) {
+        this.results.stats.end = runner.end
+        this.results.stats.duration = runner.duration
+        this.write(JSON.stringify(this.results))
     }
 }
 
