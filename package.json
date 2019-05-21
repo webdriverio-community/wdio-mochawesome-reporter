@@ -1,6 +1,6 @@
 {
   "name": "wdio-mochawesome-reporter",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "A WebdriverIO plugin. Generates json results in Mochawesome format.",
   "author": "Jim Davis <fijijavis@gmail.com>",
   "homepage": "https://github.com/fijijavis/wdio-mochawesome-reporter.git#readme",
@@ -9,21 +9,10 @@
     "type": "git",
     "url": "git+https://github.com/fijijavis/wdio-mochawesome-reporter.git"
   },
-  "main": "build/reporter.js",
-  "directories": {
-    "lib": "./lib"
-  },
+  "main": "src/index.js",
   "scripts": {
-    "build": "yarn clean && yarn compile",
-    "clean": "rm -rf ./build && rm -rf ./screenshots",
-    "compile": "babel src/ -d build/",
-    "eslint": "eslint ./src test/",
-    "hub:start": "phantomjs --webdriver=4444 2>&1 > phantom.log &",
-    "hub:stop": "ps -eaf | grep -i phantomjs | awk {'print $2'} | xargs kill -9",
-    "test:unit": "mocha ./src/**/*.spec.js --reporter mochawesome",
-    "test:func:local": "yarn build && mocha ./test/specs/tests.js",
-    "test:func": "mocha ./test/specs/tests.js",
-    "buildreport": "marge --reportDir ./wdio-mochawesome-report/mochawesome ./wdio-mochawesome-report/wdiomochawesome.json"
+    "lint": "eslint ./src test/",
+    "test": "jest"
   },
   "keywords": [
     "mochawesome",
@@ -36,33 +25,30 @@
     "url": "https://github.com/fijijavis/wdio-mochawesome-reporter/issues"
   },
   "dependencies": {
-    "json-stringify-safe": "^5.0.1",
-    "mkdirp": "~0.5.1",
+    "@wdio/reporter": "^5.7.8",
+    "strip-ansi": "^5.2.0",
     "uuid": "~3.0.1"
   },
   "devDependencies": {
-    "babel-cli": "~6.24.1",
-    "babel-core": "~6.25.0",
-    "babel-eslint": "~7.2.1",
-    "babel-istanbul": "~0.12.2",
-    "babel-plugin-add-module-exports": "~0.2.1",
-    "babel-preset-env": "~1.6.1",
-    "babel-preset-stage-0": "~6.24.1",
-    "chai": "~3.5.0",
-    "del": "~2.2.0",
     "eslint": "~4.4.0",
     "eslint-config-standard": "~10.2.0",
     "eslint-plugin-import": "~2.7.0",
     "eslint-plugin-node": "~5.1.0",
     "eslint-plugin-promise": "~3.5.0",
     "eslint-plugin-standard": "~3.0.1",
-    "mocha": "~3.4.1",
-    "mochawesome": "^3.0.3",
-    "wdio-mocha-framework": "~0.5.12",
-    "wdio-selenium-standalone-service": "~0.0.8",
-    "webdriverio": "^4.10.1"
+    "jest": "^24.8.0",
+    "jest-matchers": "^20.0.3"
   },
   "contributors": [
     "Jim Davis"
-  ]
+  ],
+  "peerDependencies": {
+    "@wdio/cli": "^5.8.4",
+    "mochawesome-report-generator": "^3.1.5"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "./src"
+    ]
+  }
 }
