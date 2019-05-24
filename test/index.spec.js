@@ -40,6 +40,16 @@ describe('Reporter Tests',()=>{
         expect(reporter.currTest.context[0]).toMatchObject({ title: 'Session Id', value: runner.sessionId })
     })
 
+    it('onTestSkipped',()=>{
+        const suite = {title: 'sample suite',uuid: '1234'}
+        const test = {title: 'this is a test',uuid: '9876'}
+        
+        reporter.onSuiteStart(suite)
+        reporter.onTestStart(test)
+        expect(reporter.currTest.title).toBe(test.title)
+        expect(reporter.currTest.context[0]).toMatchObject({ title: 'Session Id', value: runner.sessionId })
+    })
+
     it('onAfterCommand',()=>{
         const suite = {title: 'sample suite',uuid: '1234'}
         const test = {title: 'this is a test',uuid: '9876'}
@@ -61,6 +71,19 @@ describe('Reporter Tests',()=>{
         reporter.onTestEnd(test)
         expect(reporter.currTest.duration).toBe(test._duration)
         expect(reporter.currTest.pass).toBe(true)
+        expect(reporter.currSuite.tests.length).toBe(1)
+        expect(reporter.results.stats.tests).toBe(1)
+    })
+
+    it('onTestEnd - skipped',()=>{
+        const suite = {title: 'sample suite',uuid: '1234'}
+        const test = {title: 'this is a test',uuid: '9876', _duration: '123', state: 'skipped'}
+        reporter.onSuiteStart(suite)
+        reporter.onTestStart(test)
+
+        reporter.onTestEnd(test)
+        expect(reporter.currTest.duration).toBe(test._duration)
+        expect(reporter.currTest.pending).toBe(true)
         expect(reporter.currSuite.tests.length).toBe(1)
         expect(reporter.results.stats.tests).toBe(1)
     })
