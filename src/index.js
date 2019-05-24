@@ -31,6 +31,11 @@ class WdioMochawesomeReporter extends WDIOReporter {
         this.currTest.addSessionContext(this.sessionId)
     }
 
+    onTestSkip (test) {
+        this.currTest = new Test(test, this.currSuite.uuid)
+        this.currTest.addSessionContext(this.sessionId)
+    }
+
     onAfterCommand (cmd) {
         const isScreenshotEndpoint = /\/session\/[^/]*\/screenshot/
         if (isScreenshotEndpoint.test(cmd.endpoint) && cmd.result.value) {
@@ -39,10 +44,6 @@ class WdioMochawesomeReporter extends WDIOReporter {
     }
 
     onTestEnd (test) {
-        // skipped tests do not emit the TestStart event
-        if (!this.currTest) {
-            this.currTest = new Test(test, this.currSuite.uuid)
-        }
         this.currTest.duration = test._duration
         this.currTest.updateResult(test)
         this.currTest.context = JSON.stringify(this.currTest.context)
