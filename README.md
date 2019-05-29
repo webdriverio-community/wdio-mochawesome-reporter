@@ -66,6 +66,36 @@ reporters: [
 ],
 ```
 
+## Result Files
+With WDIO v5, reporting has moved from a centralized process to one that is handled by each of the "sessions" spun up for parallel test execution.  
+This change helped reduce the amount of chatter during WDIO test execution and thus improved performance.  The downside is we are no longer able 
+to get a single report for ALL test execution.  Consider the following:
+
+2 suites of tests configured to run in 2 browsers:
+
+* WDIO v4: 1 json file with execution results
+* WDIO v5: 4 json files with execution results
+
+
+`wdio-mochawesome-reporter` provides a utility function to merge the multiple json files into a single file.  Follow the steps below to take advantage of the utility.
+
+1) Create a small node script
+```javascript
+const mergeResults = require('wdio-mochawesome-reporter/mergeResults)
+mergeResults()
+```
+
+2) Call node script from command line and pass 2 arguments
+
+* <RESULTS_DIR>: Directory where results files are written
+* <FILE_REGEX>: Regex pattern for finding `wdio-mochawesome-reporter` result files in <RESULTS_DIR>.  This is necessary because multiple reporters produce `json` result files
+
+Example:
+```bash
+node mergeResults.json ./Results "wdio-mochawesome-*"
+```
+
+Upon completion, the merge script will output a single json file named `wdio-ma-merged.json` in the provided <RESULTS_DIR>
 
 # WDIO v4 Compatibility
 

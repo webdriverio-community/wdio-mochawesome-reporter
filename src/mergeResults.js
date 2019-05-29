@@ -1,14 +1,14 @@
 const fs = require('fs')
-const path = require('path');
+const path = require('path')
 
-(() => {
+const mergeResults = (...args) => {
     const dir = process.argv[2]
     const filePattern = process.argv[3]
 
     const rawData = getDataFromFiles(dir, filePattern)
     const mergedResults = mergeData(rawData)
     writeFile(dir, mergedResults)
-})()
+}
 
 function getDataFromFiles (dir, filePattern) {
     const fileNames = fs.readdirSync(dir).filter(file => file.match(filePattern))
@@ -56,3 +56,5 @@ function writeFile (dir, mergedResults) {
     const filePath = path.join(dir, fileName)
     fs.writeFileSync(filePath, JSON.stringify(mergedResults))
 }
+
+module.exports = mergeResults

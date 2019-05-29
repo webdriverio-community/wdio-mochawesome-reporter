@@ -10,6 +10,10 @@
     "url": "git+https://github.com/fijijavis/wdio-mochawesome-reporter.git"
   },
   "main": "src/index.js",
+  "files": [
+    "src",
+    "mergeResults.js"
+  ],
   "scripts": {
     "lint": "eslint ./src test/",
     "test": "jest"
