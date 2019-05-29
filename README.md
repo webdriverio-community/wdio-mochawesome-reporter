@@ -18,9 +18,6 @@ There are breaking changes between WDIO v4 and v5 with how custom reporters work
 
 # WDIO v5 Compatibility
 
-** NOTE ** 
-With WDIO v5 the reporter has undergone some major changes.  At present there is no mechanism for getting a single combined report.  See [Issue 37](https://github.com/fijijavis/wdio-mochawesome-reporter/issues/37) for details.
-
 ## Installation
 
 * NPM
@@ -81,7 +78,7 @@ to get a single report for ALL test execution.  Consider the following:
 
 1) Create a small node script
 ```javascript
-const mergeResults = require('wdio-mochawesome-reporter/mergeResults)
+const mergeResults = require('wdio-mochawesome-reporter/mergeResults')
 mergeResults()
 ```
 
