@@ -1,6 +1,6 @@
 {
   "name": "wdio-mochawesome-reporter",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "A WebdriverIO plugin. Generates json results in Mochawesome format.",
   "author": "Jim Davis <fijijavis@gmail.com>",
   "homepage": "https://github.com/fijijavis/wdio-mochawesome-reporter.git#readme",
@@ -10,6 +10,10 @@
     "url": "git+https://github.com/fijijavis/wdio-mochawesome-reporter.git"
   },
   "main": "src/index.js",
+  "files": [
+    "src",
+    "mergeResults.js"
+  ],
   "scripts": {
     "lint": "eslint ./src test/",
     "test": "jest"
