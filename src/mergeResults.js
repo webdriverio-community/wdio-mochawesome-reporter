@@ -4,10 +4,11 @@ const path = require('path')
 const mergeResults = (...args) => {
     const dir = process.argv[2]
     const filePattern = process.argv[3]
+    const customFileName = process.argv[4]
 
     const rawData = getDataFromFiles(dir, filePattern)
     const mergedResults = mergeData(rawData)
-    writeFile(dir, mergedResults)
+    writeFile(dir, mergedResults, customFileName)
 }
 
 function getDataFromFiles (dir, filePattern) {
@@ -51,8 +52,8 @@ function mergeData (rawData) {
     return mergedResults
 }
 
-function writeFile (dir, mergedResults) {
-    const fileName = 'wdio-ma-merged.json'
+function writeFile (dir, mergedResults, customFileName) {
+    let fileName = customFileName || 'wdio-ma-merged.json'
     const filePath = path.join(dir, fileName)
     fs.writeFileSync(filePath, JSON.stringify(mergedResults))
 }
