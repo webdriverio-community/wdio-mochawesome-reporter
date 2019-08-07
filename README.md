@@ -74,7 +74,9 @@ to get a single report for ALL test execution.  Consider the following:
 * WDIO v5: 4 json files with execution results
 
 
-`wdio-mochawesome-reporter` provides a utility function to merge the multiple json files into a single file.  Follow the steps below to take advantage of the utility.
+`wdio-mochawesome-reporter` provides a utility function to merge the multiple json files into a single file.  You can Follow the steps below to take advantage of the utility.
+
+### Command line
 
 1) Create a small node script
 ```javascript
@@ -90,6 +92,18 @@ mergeResults()
 Example:
 ```bash
 node mergeResults.json ./Results "wdio-mochawesome-*"
+```
+
+### As part of a wdio hook
+
+The `onComplete` is a great place to call the `mergeResults` script. Usage this way requires passing in the results directory and the file pattern as arguments to the script.
+
+```javascript
+// Located in your wdio.conf.js file
+onComplete: function (exitCode, config, capabilities, results) {
+  const mergeResults = require('wdio-mochawesome-reporter/mergeResults')
+  mergeResults('./Results', "results-*")
+}
 ```
 
 Upon completion, the merge script will output a single json file named `wdio-ma-merged.json` in the provided <RESULTS_DIR>

@@ -2,9 +2,9 @@ const fs = require('fs')
 const path = require('path')
 
 const mergeResults = (...args) => {
-    const dir = process.argv[2]
-    const filePattern = process.argv[3]
-    const customFileName = process.argv[4]
+    const dir = args[0] || process.argv[2]
+    const filePattern = args[1] || process.argv[3]
+    const customFileName = args[2] || process.argv[4]
 
     const rawData = getDataFromFiles(dir, filePattern)
     const mergedResults = mergeData(rawData)
