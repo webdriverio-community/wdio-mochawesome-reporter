@@ -48,7 +48,7 @@
   ],
   "peerDependencies": {
     "@wdio/cli": "^5.8.4",
-    "mochawesome-report-generator": "^3.1.5"
+    "mochawesome-report-generator": "^4.0.0"
   },
   "jest": {
     "testPathIgnorePatterns": [

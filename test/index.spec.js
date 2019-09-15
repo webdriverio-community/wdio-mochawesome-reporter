@@ -14,9 +14,8 @@ describe('Reporter Tests',()=>{
 
     it('onRunnerStart',()=>{
         expect(reporter.results).toMatchObject({ 
-            copyrightYear: expect.anything(),
             stats: expect.anything(),
-            suites: expect.anything()
+            results: expect.anything()
         })
         expect(reporter.sanitizedCaps).toBe(runner.sanitizedCapabilities)
         expect(reporter.sessionId).toBe(runner.sessionId)
@@ -99,7 +98,7 @@ describe('Reporter Tests',()=>{
 
         expect(reporter.currSuite.duration).toBe(suite.duration)
         expect(reporter.results.stats.suites).toBe(1)
-        expect(reporter.results.suites.suites.length).toBe(1)
+        expect(reporter.results.results[0].suites.length).toBe(1)
     })
 
     it('onRunnerEnd', () =>{
