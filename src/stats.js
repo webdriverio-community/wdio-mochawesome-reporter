@@ -15,8 +15,6 @@ module.exports = class {
         this.hasOther = false
         this.skipped = 0
         this.hasSkipped = false
-        this.passPercentClass = 'success'
-        this.pendingPercentClass = 'danger'
     }
 
     incrementSuites () {
@@ -33,9 +31,8 @@ module.exports = class {
         } else if (result.pending) {
             this.pending += 1
             this.skipped += 1
-            this.hasSkipped = true
         }
-
+        this.hasSkipped = this.skipped > 0;
         this.passPercent = this.tests === 0 ? 0 : Math.round((this.passes / this.tests) * 100)
         this.pendingPercent = this.tests === 0 ? 0 : Math.round((this.pending / this.tests) * 100)
     }

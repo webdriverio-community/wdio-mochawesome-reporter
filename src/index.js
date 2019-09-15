@@ -16,8 +16,7 @@ class WdioMochawesomeReporter extends WDIOReporter {
         // mochawesome requires this root suite for HTML report generation to work properly
         this.results = {
             stats: new Stats(runner.start),
-            suites: new Suite(true, {'title': ''}),
-            copyrightYear: new Date().getFullYear()
+            results: new Array(new Suite(true, { 'title': '' })),
         }
     }
 
@@ -53,7 +52,7 @@ class WdioMochawesomeReporter extends WDIOReporter {
 
     onSuiteEnd (suite) {
         this.currSuite.duration = suite.duration
-        this.results.suites.addSuite(this.currSuite)
+        this.results.results[0].addSuite(this.currSuite)
     }
 
     onRunnerEnd (runner) {

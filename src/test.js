@@ -12,7 +12,6 @@ module.exports = class {
         this.fail = false
         this.pending = false
         this.code = ''
-        this.isRoot = false
         this.uuid = uuid()
         this.parentUUID = suiteUUID
         this.skipped = false
