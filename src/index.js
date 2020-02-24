@@ -46,13 +46,13 @@ class WdioMochawesomeReporter extends WDIOReporter {
     onTestEnd (test) {
         this.currTest.duration = test._duration
         this.currTest.updateResult(test)
-        this.currTest.context = JSON.stringify(this.currTest.context)
         this.currSuite.addTest(this.currTest)
         this.results.stats.incrementTests(this.currTest)
     }
 
     onSuiteEnd (suite) {
         this.currSuite.duration = suite.duration
+        this.currSuite.tests.forEach(t => t.context = JSON.stringify(t.context));
         this.results.suites.addSuite(this.currSuite)
     }
 
