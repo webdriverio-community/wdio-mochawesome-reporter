@@ -17,7 +17,7 @@ module.exports = class {
         this.parentUUID = suiteUUID
         this.skipped = false
         this.isHook = false
-        this.context = addTestContext(data) // see below
+        this.context = []
         this.state = ''
         this.err = {}
     }
@@ -72,25 +72,4 @@ module.exports = class {
             value: `data:image/jpeg;base64,${value}`
         })
     }
-}
-
-/**
-* Mochawesome has a utility that allows for adding a context key
-* directly to a mocha test object.  If those exist this will add them
-* https://github.com/adamgruber/mochawesome#example
-*
-* putting this outside the class b/c it shouldn't be called directly
-*/
-function addTestContext (data) {
-    let testContext = []
-    if (data.context) {
-        if (Array.isArray(data.context)) {
-            data.context.forEach((ctx) => {
-                testContext.push(ctx)
-            })
-        } else {
-            testContext.push(data.context)
-        }
-    }
-    return testContext
 }
