@@ -72,15 +72,15 @@ class WdioMochawesomeReporter extends WDIOReporter {
     }
 
     // addContext functionality
-    registerListeners() {
+    registerListeners () {
         process.on('wdio-mochawesome-reporter:addContext', this.addSomeContext.bind(this))
     }
-    
-    addSomeContext(object) {
+
+    addSomeContext (object) {
         this.currTest.context.push(object)
-      }
-    
-    static addContext(context) {
+    }
+
+    static addContext (context) {
         process.emit('wdio-mochawesome-reporter:addContext', context)
     }
 }
