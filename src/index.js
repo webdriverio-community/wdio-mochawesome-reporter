@@ -7,12 +7,21 @@ class WdioMochawesomeReporter extends WDIOReporter {
     constructor (options) {
         options = Object.assign(options)
         super(options)
+        this.registerListeners()
     }
 
     onRunnerStart (runner) {
         this.config = runner.config
         this.sanitizedCaps = runner.sanitizedCapabilities
-        this.sessionId = runner.sessionId
+        // Set sessionId
+        if (runner.isMultiremote) {
+            this.sessionId = {}
+            for (const name in runner.capabilities) {
+                this.sessionId[name] = runner.capabilities[name].sessionId
+            }
+        } else {
+            this.sessionId = runner.sessionId
+        }
         // mochawesome requires this root suite for HTML report generation to work properly
         this.results = {
             stats: new Stats(runner.start),
@@ -60,6 +69,19 @@ class WdioMochawesomeReporter extends WDIOReporter {
         this.results.stats.end = runner.end
         this.results.stats.duration = runner.duration
         this.write(JSON.stringify(this.results))
+    }
+
+    // addContext functionality
+    registerListeners () {
+        process.on('wdio-mochawesome-reporter:addContext', this.addSomeContext.bind(this))
+    }
+
+    addSomeContext (object) {
+        this.currTest.context.push(object)
+    }
+
+    static addContext (context) {
+        process.emit('wdio-mochawesome-reporter:addContext', context)
     }
 }
 
