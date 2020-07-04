@@ -120,7 +120,7 @@ npm install wdio-mochawesome-reporter@^2.0.1 --save
 
 * Yarn
 ```bash
-yarn add wdio-json-reporter@^2.0.1 --dev
+yarn add wdio-mochawesome-reporter@^2.0.1 --dev
 ```
 
 ## Using
