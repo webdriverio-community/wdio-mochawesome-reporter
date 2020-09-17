@@ -16,7 +16,12 @@ function getDataFromFiles (dir, filePattern) {
     const data = []
 
     fileNames.forEach(fileName => {
-        data.push(JSON.parse(fs.readFileSync(`${dir}/${fileName}`)))
+        // Ignore file if it's malformed JSON
+        try {
+            data.push(JSON.parse(fs.readFileSync(`${dir}/${fileName}`)))
+        } catch (err) {
+            console.warn(`Ignoring file ${fileName}, err: ${err.message}`)
+        }
     })
 
     return data
