@@ -91,7 +91,7 @@ mergeResults()
 
 Example:
 ```bash
-node mergeResults.json ./Results "wdio-mochawesome-*"
+node mergeResults.js ./Results "wdio-mochawesome-*"
 ```
 
 ### As part of a wdio hook
