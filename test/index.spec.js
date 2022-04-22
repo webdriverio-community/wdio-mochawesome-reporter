@@ -8,7 +8,7 @@ describe('Reporter Tests',()=>{
     let reporter
 
     beforeEach(()=>{
-        reporter = new WdioMochawesomeReporter({})
+        reporter = new WdioMochawesomeReporter({logFile: "log.txt"})
         reporter.onRunnerStart(runner)
     })
 

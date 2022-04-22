@@ -1,5 +1,5 @@
 const stripAnsi = require('strip-ansi')
-const uuid = require('uuid/v4')
+const { v4: uuid } = require('uuid')
 
 module.exports = class {
     constructor (data, suiteUUID) {
@@ -82,7 +82,7 @@ module.exports = class {
 * putting this outside the class b/c it shouldn't be called directly
 */
 function addTestContext (data) {
-    let testContext = []
+    const testContext = []
     if (data.context) {
         if (Array.isArray(data.context)) {
             data.context.forEach((ctx) => {

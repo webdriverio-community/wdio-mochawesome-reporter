@@ -9,3 +9,4 @@ phantom.log
 wdio-mochawesome-report/
 mochawesome-report/
 yarn-error.log
+log.txt
