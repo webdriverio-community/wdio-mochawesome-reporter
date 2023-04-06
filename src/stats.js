@@ -15,8 +15,6 @@ module.exports = class {
         this.hasOther = false
         this.skipped = 0
         this.hasSkipped = false
-        this.passPercentClass = 'success'
-        this.pendingPercentClass = 'danger'
     }
 
     incrementSuites () {

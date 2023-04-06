@@ -1,5 +1,5 @@
 const stripAnsi = require('strip-ansi')
-const uuid = require('uuid/v4')
+const { v4: uuid } = require('uuid')
 
 module.exports = class {
     constructor (data, suiteUUID) {
@@ -7,19 +7,18 @@ module.exports = class {
         this.fullTitle = data.title
         this.timedOut = false
         this.duration = 0
+        this.state = 'pending'
         this.speed = 'fast'
         this.pass = false
         this.fail = false
         this.pending = false
         this.code = ''
-        this.isRoot = false
+        this.err = {}
         this.uuid = uuid()
         this.parentUUID = suiteUUID
         this.skipped = false
-        this.isHook = false
         this.context = addTestContext(data) // see below
-        this.state = ''
-        this.err = {}
+        this.isHook = false
     }
 
     updateResult (result) {
@@ -82,7 +81,7 @@ module.exports = class {
 * putting this outside the class b/c it shouldn't be called directly
 */
 function addTestContext (data) {
-    let testContext = []
+    const testContext = []
     if (data.context) {
         if (Array.isArray(data.context)) {
             data.context.forEach((ctx) => {
