@@ -44,8 +44,8 @@ function mergeData (rawData) {
             mergedResults.stats.pendingPercent = mergedResults.stats.tests === 0 ? 0 : Math.round((mergedResults.stats.pending / mergedResults.stats.tests) * 100)
 
             // add suites
-            data.suites.suites.forEach(suite => {
-                mergedResults.suites.suites.push(suite)
+            data.results[0].suites.forEach(suite => {
+                mergedResults.results[0].suites.push(suite)
             })
         }
     })
@@ -53,7 +53,7 @@ function mergeData (rawData) {
 }
 
 function writeFile (dir, mergedResults, customFileName) {
-    let fileName = customFileName || 'wdio-ma-merged.json'
+    const fileName = customFileName || 'wdio-ma-merged.json'
     const filePath = path.join(dir, fileName)
     fs.writeFileSync(filePath, JSON.stringify(mergedResults))
 }
