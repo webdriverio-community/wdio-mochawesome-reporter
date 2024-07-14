@@ -62,6 +62,7 @@ reporters: [
     }
   }]
 ],
+```
 
 # WDIO v5 Compatibility
 
