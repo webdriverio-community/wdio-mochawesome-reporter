@@ -234,3 +234,7 @@ v1.x of ```wdio-mochawesome-reporter``` is compatible with ```2.3.2``` of ```moc
 v2.x of ```wdio-mochawesome-reporter``` is compatible with version ```3.1.5``` of ```mochawesome-report-generator```
 
 v3.x of ```wdio-mochawesome-reporter``` is compatible with version ```3.1.5``` of ```mochawesome-report-generator```
+
+v4.x of ```wdio-mochawesome-reporter``` is compatible with version ```3.1.5``` of ```mochawesome-report-generator```
+
+v5.x of ```wdio-mochawesome-reporter``` is compatible with version ```6.2.0``` of ```mochawesome-report-generator```
