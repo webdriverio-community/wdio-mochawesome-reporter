@@ -1,0 +1,21 @@
+name: Build Check
+
+on:
+  push:
+  pull_request:
+    branches:
+        - "*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js 10.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 10.x
+    - run: yarn --frozen-lockfile
+    - run: yarn lint
+    - run: yarn test

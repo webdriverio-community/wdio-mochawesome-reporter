@@ -2,12 +2,12 @@
   "name": "wdio-mochawesome-reporter",
   "version": "4.0.0",
   "description": "A WebdriverIO plugin. Generates json results in Mochawesome format.",
-  "author": "Jim Davis <fijijavis@gmail.com>",
-  "homepage": "https://github.com/fijijavis/wdio-mochawesome-reporter.git#readme",
+  "author": "Jemish Gopani <jemishgopani2@gmail.com>",
+  "homepage": "https://github.com/jemishgopani/wdio-mochawesome-reporter.git#readme",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fijijavis/wdio-mochawesome-reporter.git"
+    "url": "git+https://github.com/jemishgopani/wdio-mochawesome-reporter.git"
   },
   "main": "src/index.js",
   "files": [
@@ -26,7 +26,7 @@
     "wdio-reporter"
   ],
   "bugs": {
-    "url": "https://github.com/fijijavis/wdio-mochawesome-reporter/issues"
+    "url": "https://github.com/jemishgopani/wdio-mochawesome-reporter/issues"
   },
   "dependencies": {
     "@wdio/reporter": "^5.7.8",
@@ -44,6 +44,7 @@
     "jest-matchers": "^20.0.3"
   },
   "contributors": [
+    "Jemish Gopani",
     "Jim Davis"
   ],
   "peerDependencies": {
