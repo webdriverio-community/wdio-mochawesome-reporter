@@ -23,12 +23,12 @@ There are breaking changes between WDIO v4 and v5 with how custom reporters work
 
 * NPM
 ```bash
-npm install wdio-mochawesome-reporter@^4.0.0 --save-dev
+npm install wdio-mochawesome-reporter --save-dev
 ```
 
 * Yarn
 ```bash
-yarn add wdio-mochawesome-reporter@^4.0.0 --dev
+yarn add wdio-mochawesome-reporter --dev
 ```
 
 ## Configuration
@@ -70,12 +70,12 @@ reporters: [
 
 * NPM
 ```bash
-npm install wdio-mochawesome-reporter --save-dev
+npm install wdio-mochawesome-reporter^4.0.0 --save-dev
 ```
 
 * Yarn
 ```bash
-yarn add wdio-mochawesome-reporter --dev
+yarn add wdio-mochawesome-reporter^4.0.0 --dev
 ```
 
 ## Configuration
