@@ -16,6 +16,7 @@ There are breaking changes between WDIO v4 and v5 with how custom reporters work
 | >= 3.0.0           | v5   |
 | >= 4.0.0           | v6   |
 | >= 5.0.0           | v7   |
+| >= 6.0.0           | v8   |
 
 
 # WDIO v7 Compatibility
@@ -23,12 +24,12 @@ There are breaking changes between WDIO v4 and v5 with how custom reporters work
 
 * NPM
 ```bash
-npm install wdio-mochawesome-reporter@^4.0.0 --save-dev
+npm install wdio-mochawesome-reporter --save-dev
 ```
 
 * Yarn
 ```bash
-yarn add wdio-mochawesome-reporter@^4.0.0 --dev
+yarn add wdio-mochawesome-reporter --dev
 ```
 
 ## Configuration
@@ -70,12 +71,12 @@ reporters: [
 
 * NPM
 ```bash
-npm install wdio-mochawesome-reporter --save-dev
+npm install wdio-mochawesome-reporter@^4.0.0 --save-dev
 ```
 
 * Yarn
 ```bash
-yarn add wdio-mochawesome-reporter --dev
+yarn add wdio-mochawesome-reporter@^4.0.0 --dev
 ```
 
 ## Configuration
@@ -238,3 +239,5 @@ v3.x of ```wdio-mochawesome-reporter``` is compatible with version ```3.1.5``` o
 v4.x of ```wdio-mochawesome-reporter``` is compatible with version ```3.1.5``` of ```mochawesome-report-generator```
 
 v5.x of ```wdio-mochawesome-reporter``` is compatible with version ```3.1.5``` of ```mochawesome-report-generator```
+
+v6.x of ```wdio-mochawesome-reporter``` is compatible with version ```3.1.5``` of ```mochawesome-report-generator```
