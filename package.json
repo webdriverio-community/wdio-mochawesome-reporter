@@ -1,6 +1,6 @@
 {
   "name": "wdio-mochawesome-reporter",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "description": "A WebdriverIO plugin. Generates json results in Mochawesome format.",
   "author": "Jemish Gopani <jemishgopani2@gmail.com>",
   "homepage": "https://github.com/jemishgopani/wdio-mochawesome-reporter.git#readme",

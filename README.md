@@ -1,7 +1,7 @@
 WDIO Mochawesome Reporter
 =========================
 
-[![Build Check](https://github.com/jemishgopani/wdio-mochawesome-reporter/actions/workflows/build_check.yml/badge.svg?branch=wdio_v7_reporter_v5)](https://github.com/jemishgopani/wdio-mochawesome-reporter/actions/workflows/build_check.yml) [![NPM version](https://badge.fury.io/js/wdio-mochawesome-reporter.svg)](http://badge.fury.io/js/wdio-mochawesome-reporter) [![npm](https://img.shields.io/npm/dm/wdio-mochawesome-reporter.svg?maxAge=2592000)]()
+[![Build Check](https://github.com/jemishgopani/wdio-mochawesome-reporter/actions/workflows/build_check.yml/badge.svg?branch=wdio_v7_reporter_v5)](https://github.com/jemishgopani/wdio-mochawesome-reporter/actions/workflows/build_check.yml) [![npm version](https://badge.fury.io/js/wdio-mochawesome-reporter.svg)](https://badge.fury.io/js/wdio-mochawesome-reporter) [![npm](https://img.shields.io/npm/dm/wdio-mochawesome-reporter.svg?maxAge=2592000)]()
 
 Generates test results in the json formated needed to create [Mochawesome](https://github.com/adamgruber/mochawesome) reports.
 
