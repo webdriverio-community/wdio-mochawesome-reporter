@@ -1,7 +1,7 @@
 WDIO Mochawesome Reporter
 =========================
 
-![Build Status](https://travis-ci.org/jemishgopani/wdio-mochawesome-reporter.svg?branch=master) [![NPM version](https://badge.fury.io/js/wdio-mochawesome-reporter.svg)](http://badge.fury.io/js/wdio-mochawesome-reporter) [![npm](https://img.shields.io/npm/dm/wdio-mochawesome-reporter.svg?maxAge=2592000)]() 
+[![Build Check](https://github.com/jemishgopani/wdio-mochawesome-reporter/actions/workflows/build_check.yml/badge.svg?branch=wdio_v7_reporter_v5)](https://github.com/jemishgopani/wdio-mochawesome-reporter/actions/workflows/build_check.yml) [![NPM version](https://badge.fury.io/js/wdio-mochawesome-reporter.svg)](http://badge.fury.io/js/wdio-mochawesome-reporter) [![npm](https://img.shields.io/npm/dm/wdio-mochawesome-reporter.svg?maxAge=2592000)]()
 
 Generates test results in the json formated needed to create [Mochawesome](https://github.com/adamgruber/mochawesome) reports.
 
@@ -14,7 +14,54 @@ There are breaking changes between WDIO v4 and v5 with how custom reporters work
 | ------------------ | ---- |
 | <= 2.0.1           | v4   |
 | >= 3.0.0           | v5   |
+| >= 4.0.0           | v6   |
+| >= 5.0.0           | v7   |
 
+
+# WDIO v7 Compatibility
+## Installation
+
+* NPM
+```bash
+npm install wdio-mochawesome-reporter@^4.0.0 --save-dev
+```
+
+* Yarn
+```bash
+yarn add wdio-mochawesome-reporter@^4.0.0 --dev
+```
+
+## Configuration
+
+### Results to STDOUT
+```js
+reporters: [
+  'dot',
+  ['mochawesome',{ stdout: true }]
+],
+```
+
+### Results to File
+```js
+reporters: [
+  'dot',
+  ['mochawesome',{
+      outputDir: './Results'
+  }]
+],
+```
+
+### Results to File with custom file name
+```js
+reporters: [
+  'dot',
+  ['mochawesome',{
+    outputDir: './Results',
+    outputFileFormat: function(opts) {
+        return `results-${opts.cid}.${opts.capabilities}.json`
+    }
+  }]
+],
 
 # WDIO v5 Compatibility
 
@@ -56,7 +103,7 @@ reporters: [
   'dot',
   ['mochawesome',{
     outputDir: './Results',
-    outputFileFormat: function(opts) { 
+    outputFileFormat: function(opts) {
         return `results-${opts.cid}.${opts.capabilities}.json`
     }
   }]
@@ -64,8 +111,8 @@ reporters: [
 ```
 
 ## Result Files
-With WDIO v5, reporting has moved from a centralized process to one that is handled by each of the "sessions" spun up for parallel test execution.  
-This change helped reduce the amount of chatter during WDIO test execution and thus improved performance.  The downside is we are no longer able 
+With WDIO v5, reporting has moved from a centralized process to one that is handled by each of the "sessions" spun up for parallel test execution.
+This change helped reduce the amount of chatter during WDIO test execution and thus improved performance.  The downside is we are no longer able
 to get a single report for ALL test execution.  Consider the following:
 
 2 suites of tests configured to run in 2 browsers:
@@ -115,7 +162,7 @@ Upon completion, the merge script will output a single json file named `wdio-ma-
 
 * NPM
 ```bash
-npm install wdio-mochawesome-reporter@^2.0.1 --save 
+npm install wdio-mochawesome-reporter@^2.0.1 --save
 ```
 
 * Yarn
