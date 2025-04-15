@@ -24,13 +24,13 @@ module.exports = class {
             if (saniCaps) {
                 this.title = `${this.title} (${saniCaps})`
             }
-            
+
             if (data.file) {
                 this.file = data.file
                 this.fullFile = data.fullFile || data.file
             }
         }
-        
+
         if (data && typeof data.rootEmpty !== 'undefined') {
             this.rootEmpty = data.rootEmpty
         }

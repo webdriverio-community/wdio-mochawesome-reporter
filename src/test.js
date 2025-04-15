@@ -19,7 +19,7 @@ module.exports = class {
         this.parentUUID = suiteUUID
         this.isHook = data.type === 'hook'
         this.skipped = false
-        
+
         // Initialize context array if we need it
         const testContext = addTestContext(data)
         if (testContext.length > 0) {
@@ -68,7 +68,7 @@ module.exports = class {
         if (!this.context) {
             this.context = []
         }
-        
+
         this.context.push({
             title: 'Session Id',
             value: sessionId
@@ -79,7 +79,7 @@ module.exports = class {
         if (!this.context) {
             this.context = []
         }
-        
+
         this.context.push({
             title: 'Screenshot',
             value: `data:image/jpeg;base64,${value}`
