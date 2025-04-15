@@ -1,6 +1,6 @@
 {
   "name": "wdio-mochawesome-reporter",
-  "version": "6.1.1",
+  "version": "7.0.0",
   "description": "A WebdriverIO plugin. Generates json results in Mochawesome format.",
   "author": "Jemish Gopani <jemishgopani2@gmail.com>",
   "homepage": "https://github.com/jemishgopani/wdio-mochawesome-reporter.git#readme",
@@ -41,6 +41,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-standard": "^5.0.0",
+    "fs-extra": "^11.3.0",
     "jest": "^29.5.0",
     "jest-matchers": "^20.0.3"
   },

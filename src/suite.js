@@ -5,7 +5,7 @@ module.exports = class {
         this.suites = []
         this.tests = []
         this.root = isRoot
-        this._timeout = 0
+        this._timeout = 5000
         this.file = ''
         this.uuid = uuid()
         this.fullFile = ''
@@ -16,13 +16,17 @@ module.exports = class {
         this.pending = []
         this.skipped = []
         this.duration = 0
-        this.rootEmpty = data.rootEmpty
 
         if (!isRoot) {
             this.title = data.title
 
             if (saniCaps) {
                 this.title = `${this.title} (${saniCaps})`
+            }
+
+            if (data.file) {
+                this.file = data.file
+                this.fullFile = data.fullFile || data.file
             }
         }
     }
@@ -41,5 +45,13 @@ module.exports = class {
             this.pending.push(test.uuid)
             this.skipped.push(test.uuid)
         }
+    }
+
+    addBeforeHook (hook) {
+        this.beforeHooks.push(hook)
+    }
+
+    addAfterHook (hook) {
+        this.afterHooks.push(hook)
     }
 }

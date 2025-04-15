@@ -17,9 +17,10 @@ There are breaking changes between WDIO v4 and v5 with how custom reporters work
 | >= 4.0.0           | v6   |
 | >= 5.0.0           | v7   |
 | >= 6.0.0           | v8   |
+| >= 7.0.0           | v9   |
 
 
-# WDIO v7 Compatibility
+# WDIO v9 Compatibility
 ## Installation
 
 * NPM
@@ -65,8 +66,53 @@ reporters: [
 ],
 ```
 
-# WDIO v5 Compatibility
+# WDIO v8 Compatibility
+## Installation
 
+* NPM
+```bash
+npm install wdio-mochawesome-reporter --save-dev
+```
+
+* Yarn
+```bash
+yarn add wdio-mochawesome-reporter --dev
+```
+
+## Configuration
+
+### Results to STDOUT
+```js
+reporters: [
+  'dot',
+  ['mochawesome',{ stdout: true }]
+],
+```
+
+### Results to File
+```js
+reporters: [
+  'dot',
+  ['mochawesome',{
+      outputDir: './Results'
+  }]
+],
+```
+
+### Results to File with custom file name
+```js
+reporters: [
+  'dot',
+  ['mochawesome',{
+    outputDir: './Results',
+    outputFileFormat: function(opts) {
+        return `results-${opts.cid}.${opts.capabilities}.json`
+    }
+  }]
+],
+```
+
+# WDIO v7 Compatibility
 ## Installation
 
 * NPM
@@ -241,3 +287,5 @@ v4.x of ```wdio-mochawesome-reporter``` is compatible with version ```3.1.5``` o
 v5.x of ```wdio-mochawesome-reporter``` is compatible with version ```6.2.0``` of ```mochawesome-report-generator```
 
 v6.x of ```wdio-mochawesome-reporter``` is compatible with version ```6.2.0``` of ```mochawesome-report-generator```
+
+v7.x of ```wdio-mochawesome-reporter``` is compatible with version ```6.2.0``` of ```mochawesome-report-generator```

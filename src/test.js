@@ -4,21 +4,27 @@ const { v4: uuid } = require('uuid')
 module.exports = class {
     constructor (data, suiteUUID) {
         this.title = data.title
-        this.fullTitle = data.title
+        this.fullTitle = data.fullTitle || data.title
         this.timedOut = false
         this.duration = 0
-        this.state = 'pending'
-        this.speed = 'fast'
+        this.state = null
+        this.speed = null
         this.pass = false
         this.fail = false
         this.pending = false
+        this.context = addTestContext(data)
         this.code = ''
         this.err = {}
         this.uuid = uuid()
         this.parentUUID = suiteUUID
+        this.isHook = data.type === 'hook'
         this.skipped = false
-        this.context = addTestContext(data) // see below
-        this.isHook = false
+
+        // Initialize context array if we need it
+        const testContext = addTestContext(data)
+        if (testContext.length > 0) {
+            this.context = testContext
+        }
     }
 
     updateResult (result) {
@@ -59,6 +65,10 @@ module.exports = class {
     }
 
     addSessionContext (sessionId) {
+        if (!this.context) {
+            this.context = []
+        }
+
         this.context.push({
             title: 'Session Id',
             value: sessionId
@@ -66,6 +76,10 @@ module.exports = class {
     }
 
     addScreenshotContext (value) {
+        if (!this.context) {
+            this.context = []
+        }
+
         this.context.push({
             title: 'Screenshot',
             value: `data:image/jpeg;base64,${value}`
