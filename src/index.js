@@ -7,7 +7,6 @@ const path = require('path')
 
 class WdioMochawesomeReporter extends WDIOReporter {
     constructor (options) {
-        console.log('reporter options', options)
         options = Object.assign(options)
         super(options)
         this.pendingContext = []
@@ -66,20 +65,21 @@ class WdioMochawesomeReporter extends WDIOReporter {
     onSuiteStart (suite) {
         this.currSuite = new Suite(false, suite, this.sanitizedCaps)
         this.results.stats.incrementSuites()
-
+        
         // Extract tests from spec file if available
         if (suite.file) {
             try {
                 const tests = this.extractTestsFromSpecFile(suite.file)
                 if (tests.length > 0) {
+                    
                     // Add the extracted tests to a global cache for external access
                     if (!WdioMochawesomeReporter.testCache) {
                         WdioMochawesomeReporter.testCache = {}
                     }
-
+                    
                     // Use normalized path as key
                     const normalizedPath = path.resolve(suite.file)
-                    WdioMochawesomeReporter.testCache[normalizedPath] = tests
+                    WdioMochawesomeReporter.testCache[normalizedPath] = tests                    
                 }
             } catch (error) {
                 console.error(`Error extracting tests from ${suite.file}:`, error.message)
@@ -88,17 +88,17 @@ class WdioMochawesomeReporter extends WDIOReporter {
     }
 
     // Extract tests from spec file
-    extractTestsFromSpecFile (filePath) {
+    extractTestsFromSpecFile(filePath) {
         try {
             // Make sure file exists
             if (!fs.existsSync(filePath)) {
                 console.error(`Spec file not found: ${filePath}`)
                 return []
             }
-
+            
             // Read file content
             const content = fs.readFileSync(filePath, 'utf-8')
-
+            
             // Use regex to find it blocks with different patterns
             // Supports:
             // - it('test name', function() {...})
@@ -106,47 +106,47 @@ class WdioMochawesomeReporter extends WDIOReporter {
             // - it(`test name`, async () => {...})
             // - test('test name', function() {...})
             const itBlockRegex = /(?:it|test)\s*\(\s*(['"`])(.+?)\1\s*,\s*(?:async\s*)?\(?(?:function\s*)?\(?[\w,\s]*\)?\s*(?:=>)?\s*{/g
-
+            
             const tests = []
             let match
-
+            
             // Extract all matches
             while ((match = itBlockRegex.exec(content)) !== null) {
                 // Find surrounding describe blocks to add more context
                 const surroundingCode = content.substring(0, match.index)
                 const describeBlocks = this.getDescribeContext(surroundingCode)
-
+                
                 tests.push({
                     title: match[2],
                     line: this.getLineNumber(content, match.index),
-                    context: '',
-                    state: 'none',
+                    context: "",
+                    state: "none",
                     fullTitle: [...describeBlocks, match[2]].join(' > ')
                 })
             }
-
+            
             return tests
         } catch (error) {
             console.error(`Error reading spec file ${filePath}:`, error.message)
             return []
         }
     }
-
+    
     // Extract describe blocks surrounding a test for context
-    getDescribeContext (codeUpToTest) {
+    getDescribeContext(codeUpToTest) {
         const describeRegex = /describe\s*\(\s*(['"`])(.+?)\1\s*,/g
         const describes = []
         let match
-
+        
         while ((match = describeRegex.exec(codeUpToTest)) !== null) {
             describes.push(match[2])
         }
-
+        
         return describes
     }
-
+    
     // Helper to get line number from character index
-    getLineNumber (content, index) {
+    getLineNumber(content, index) {
         const lines = content.substring(0, index).split('\n')
         return lines.length
     }
@@ -154,7 +154,7 @@ class WdioMochawesomeReporter extends WDIOReporter {
     onTestStart (test) {
         this.currTest = new Test(test, this.currSuite.uuid)
         this.currTest.addSessionContext(this.sessionId)
-
+        
         // Apply any pending context that was added before the test started
         if (this.pendingContext && this.pendingContext.length > 0) {
             this.pendingContext.forEach(context => {
@@ -167,7 +167,7 @@ class WdioMochawesomeReporter extends WDIOReporter {
     onTestSkip (test) {
         this.currTest = new Test(test, this.currSuite.uuid)
         this.currTest.addSessionContext(this.sessionId)
-
+        
         // Apply any pending context that was added before the test started
         if (this.pendingContext && this.pendingContext.length > 0) {
             this.pendingContext.forEach(context => {
@@ -184,12 +184,12 @@ class WdioMochawesomeReporter extends WDIOReporter {
             fullTitle: hook.title,
             type: 'hook'
         }, this.currSuite ? this.currSuite.uuid : null)
-
+        
         // Add session context to hook
         if (this.sessionId) {
             this.currHook.addSessionContext(this.sessionId)
         }
-
+        
         // Apply any pending context
         if (this.pendingContext && this.pendingContext.length > 0) {
             this.pendingContext.forEach(context => {
@@ -198,12 +198,12 @@ class WdioMochawesomeReporter extends WDIOReporter {
             this.pendingContext = []
         }
     }
-
+    
     onHookEnd (hook) {
         if (!this.currHook) return
-
+        
         this.currHook.duration = hook._duration
-
+        
         // Handle results
         if (hook.error) {
             this.currHook.state = 'failed'
@@ -215,10 +215,15 @@ class WdioMochawesomeReporter extends WDIOReporter {
             }
 
             for (const test of WdioMochawesomeReporter.testCache[this.currSuite.file]) {
-                if (test.state === 'none') {
+                if (test.state === "none") {
                     const skippedTest = new Test(test, this.currSuite.uuid)
                     test.state = 'skipped'
                     skippedTest.updateResult(test)
+
+                    // Stringify context only if it exists
+                    if (skippedTest.context) {
+                        skippedTest.context = JSON.stringify(skippedTest.context)
+                    }   
                     this.currSuite.addTest(skippedTest)
                     this.results.stats.incrementTests(skippedTest)
                 }
@@ -227,12 +232,12 @@ class WdioMochawesomeReporter extends WDIOReporter {
             this.currHook.state = 'passed'
             this.currHook.pass = true
         }
-
+        
         // Stringify context only if it exists
         if (this.currHook.context) {
             this.currHook.context = JSON.stringify(this.currHook.context)
         }
-
+        
         // Add to appropriate hook collection
         if (this.currSuite) {
             if (hook.title.includes('before')) {
@@ -241,7 +246,7 @@ class WdioMochawesomeReporter extends WDIOReporter {
                 this.currSuite.addAfterHook(this.currHook)
             }
         }
-
+        
         this.currHook = null
     }
 
@@ -256,17 +261,25 @@ class WdioMochawesomeReporter extends WDIOReporter {
         this.currTest.duration = test._duration
         this.currTest.updateResult(test)
 
+        // Initialize testCache for the current file if not already done
+        if (!WdioMochawesomeReporter.testCache || !WdioMochawesomeReporter.testCache[this.currSuite.file]) {
+            if (!WdioMochawesomeReporter.testCache) {
+                WdioMochawesomeReporter.testCache = {}
+            }
+            WdioMochawesomeReporter.testCache[this.currSuite.file] = []
+        }
+
         for (const cachedTest of WdioMochawesomeReporter.testCache[this.currSuite.file]) {
             if (cachedTest.title === test.title) {
                 cachedTest.state = test.state.toLowerCase()
             }
         }
-
+        
         // Only stringify context if it exists
         if (this.currTest.context) {
             this.currTest.context = JSON.stringify(this.currTest.context)
         }
-
+        
         this.currSuite.addTest(this.currTest)
         this.results.stats.incrementTests(this.currTest)
     }
@@ -301,10 +314,10 @@ class WdioMochawesomeReporter extends WDIOReporter {
 
     static addContext (context) {
         process.emit('wdio-mochawesome-reporter:addContext', context)
-    }
-
+    }  
+    
     // Clear the test cache (useful for testing or when files change)
-    static clearTestCache () {
+    static clearTestCache() {
         WdioMochawesomeReporter.testCache = {}
     }
 }

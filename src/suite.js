@@ -16,7 +16,6 @@ module.exports = class {
         this.pending = []
         this.skipped = []
         this.duration = 0
-        this.rootEmpty = isRoot
 
         if (!isRoot) {
             this.title = data.title
@@ -29,10 +28,6 @@ module.exports = class {
                 this.file = data.file
                 this.fullFile = data.fullFile || data.file
             }
-        }
-
-        if (data && typeof data.rootEmpty !== 'undefined') {
-            this.rootEmpty = data.rootEmpty
         }
     }
 
